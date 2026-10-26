@@ -1,0 +1,74 @@
+<!doctype html><html><head>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&display=swap" rel="stylesheet">
+<style>html,body{margin:0;width:1024px;height:1024px;overflow:hidden;background:transparent}
+body.dark{background:radial-gradient(circle at 50% 42%,#2a1f4f 0%,#16112a 70%)}svg{width:1024px;height:1024px;display:block}body.cloth .hang{display:none}</style></head><body>
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<defs>
+ <linearGradient id="cloth" x1="0" y1="0" x2="1" y2="0">
+  <stop offset="0" stop-color="#2c1850"/><stop offset="0.18" stop-color="#4a2a80"/><stop offset="0.5" stop-color="#3a2068"/>
+  <stop offset="0.78" stop-color="#4c2c84"/><stop offset="1" stop-color="#26143f"/>
+ </linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0d89a"/><stop offset="0.5" stop-color="#c99a4b"/><stop offset="1" stop-color="#8f652a"/></linearGradient>
+ <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a5a33"/><stop offset="0.5" stop-color="#5e3a1f"/><stop offset="1" stop-color="#3b2412"/></linearGradient>
+ <linearGradient id="pl" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#d9c2ff"/><stop offset="0.6" stop-color="#9a6cf5"/><stop offset="1" stop-color="#6a3fd1"/></linearGradient>
+ <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity="0.35"/><stop offset="0.12" stop-color="#000" stop-opacity="0"/><stop offset="0.8" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity="0.35"/></linearGradient>
+ <clipPath id="bk"><rect x="0" y="0" width="100" height="47"/></clipPath>
+ <clipPath id="fr"><rect x="0" y="47" width="100" height="60"/></clipPath>
+ <!-- Yıpranma: kenarları dalgalandır, kumaş dokusu ver, yer yer delik aç -->
+ <filter id="worn" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+  <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" seed="11" result="big"/>
+  <feDisplacementMap in="SourceGraphic" in2="big" scale="1.3" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+  <feTurbulence type="fractalNoise" baseFrequency="0.13" numOctaves="4" seed="4" result="holes"/>
+  <feColorMatrix in="holes" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -14 0 0 0 10.4" result="holeMask"/>
+  <feComposite in="disp" in2="holeMask" operator="in" result="holed"/>
+  <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" seed="2" result="grain"/>
+  <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -0.9 0.6" result="grainA"/>
+  <feComposite in="grainA" in2="holed" operator="in" result="grainIn"/>
+  <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="21" result="stain"/>
+  <feColorMatrix in="stain" type="matrix" values="0 0 0 0 0.12  0 0 0 0 0.07  0 0 0 0 0.03  0 0 0 -2.2 1.25" result="stainA"/>
+  <feComposite in="stainA" in2="holed" operator="in" result="stainIn"/>
+  <feMerge><feMergeNode in="holed"/><feMergeNode in="stainIn"/><feMergeNode in="grainIn"/></feMerge>
+ </filter>
+ <filter id="soft" x="-10%" y="-10%" width="120%" height="120%" color-interpolation-filters="sRGB">
+  <feTurbulence type="fractalNoise" baseFrequency="0.08" numOctaves="3" seed="11" result="big"/>
+  <feDisplacementMap in="SourceGraphic" in2="big" scale="0.8" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+  <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="2" seed="5" result="grain"/>
+  <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0.1  0 0 0 0 0.05  0 0 0 0 0.12  0 0 0 -1.4 0.95" result="grainA"/>
+  <feComposite in="grainA" in2="disp" operator="in" result="grainIn"/>
+  <feMerge><feMergeNode in="disp"/><feMergeNode in="grainIn"/></feMerge>
+ </filter>
+</defs>
+
+<!-- İp ve askı -->
+<g class="hang"><path d="M22 11 L50 3 L78 11" fill="none" stroke="#a88b5c" stroke-width="0.7"/>
+<circle cx="50" cy="3" r="1.3" fill="url(#gold)"/></g>
+
+<!-- Kumaş -->
+<g filter="url(#worn)">
+ <path d="M25 12 H75 V78 L71 83 L68 79 L64 86 L60 81 L56 90 L52 84 L50 93 L47 85 L43 91 L40 82 L36 87 L33 80 L29 84 L25 78 Z" fill="url(#cloth)"/>
+ <path d="M25 12 H75 V78 L71 83 L68 79 L64 86 L60 81 L56 90 L52 84 L50 93 L47 85 L43 91 L40 82 L36 87 L33 80 L29 84 L25 78 Z" fill="url(#shade)"/>
+ <!-- İç altın şerit -->
+ <path d="M28.5 15.5 H71.5 V74" fill="none" stroke="#c99a4b" stroke-width="0.9" opacity="0.9"/>
+ <path d="M28.5 15.5 V74" fill="none" stroke="#c99a4b" stroke-width="0.9" opacity="0.9"/>
+</g>
+<g filter="url(#soft)" opacity="0.94">
+ <!-- Yazı -->
+ <text x="50" y="27" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-weight="900" font-size="5.9" letter-spacing="0.5" fill="#f3e2b8">SELLENNIA</text>
+ <path d="M36 30.5 H64" stroke="#c99a4b" stroke-width="0.6"/>
+ <!-- Gezegen arması -->
+ <g transform="rotate(-16 50 47)">
+  <ellipse cx="50" cy="47" rx="17" ry="4.8" fill="none" stroke="url(#gold)" stroke-width="2" clip-path="url(#bk)"/>
+  <circle cx="50" cy="47" r="10" fill="url(#pl)"/>
+  <ellipse cx="50" cy="47" rx="17" ry="4.8" fill="none" stroke="#3a2068" stroke-width="4" clip-path="url(#fr)"/>
+  <ellipse cx="50" cy="47" rx="17" ry="4.8" fill="none" stroke="url(#gold)" stroke-width="2" clip-path="url(#fr)"/>
+ </g>
+ <g fill="url(#gold)"><path d="M36 37l.7 1.5 1.6.1-1.2 1 .4 1.6-1.5-.9-1.5.9.4-1.6-1.2-1 1.6-.1z"/><path d="M64 37l.7 1.5 1.6.1-1.2 1 .4 1.6-1.5-.9-1.5.9.4-1.6-1.2-1 1.6-.1z"/></g>
+ <path d="M38 63.5 H62" stroke="#c99a4b" stroke-width="0.6"/>
+ <text x="50" y="72.5" text-anchor="middle" font-family="Cinzel, Georgia, serif" font-weight="900" font-size="6.4" letter-spacing="0.8" fill="#f07ad8">Roleplay</text>
+</g>
+
+<!-- Ahşap direk -->
+<g class="hang"><rect x="19" y="9.6" width="62" height="3.2" rx="1.6" fill="url(#wood)"/>
+<circle cx="19.2" cy="11.2" r="2.1" fill="url(#gold)"/><circle cx="80.8" cy="11.2" r="2.1" fill="url(#gold)"/></g>
+</svg>
+<script>if(location.hash=='#dark')document.body.className='dark';if(location.hash=='#cloth')document.body.className='cloth'</script></body></html>

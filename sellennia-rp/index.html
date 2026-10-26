@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sellennia Roleplay</title>
+  <meta name="description" content="Sellennia Roleplay: Mount &amp; Blade: Warband için Persistent Kingdoms rol yapma sunucusu. Harita Normandiya.">
+  <meta property="og:title" content="Sellennia Roleplay">
+  <meta property="og:description" content="Mount &amp; Blade: Warband için Persistent Kingdoms rol yapma sunucusu.">
+  <meta property="og:type" content="website">
+  <link rel="alternate" hreflang="tr" href="./">
+  <link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#icerik">İçeriğe geç</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" lang="en" href="../"><img src="../assets/img/logo.svg" alt="" width="40" height="40">Sellennia Studios</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menü</button>
+      <nav class="site-nav" id="site-nav" aria-label="Ana menü">
+        <ul>
+          <li><a href="../">Ana sayfa</a></li>
+          <li><a href="./" aria-current="page">Sellennia Roleplay</a></li>
+          <li><a href="katil/">Sunucuya gir</a></li>
+          <li><a href="../sellennia-helpers/">Sellennia's Helpers</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="icerik">
+    <section class="hero">
+      <div class="container hero-split">
+        <div>
+          <h1 class="crest">
+            <!-- Sancak: kumaş katmanı rüzgar filtresiyle dalgalanıyor, sırık ve ip sabit. Kaynak: brand/src/rp-banner.html -->
+            <svg class="flag" viewBox="16 1 68 94" role="img" aria-label="Sellennia Roleplay">
+              <defs>
+                <linearGradient id="flag-wood" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a5a33"/><stop offset="0.5" stop-color="#5e3a1f"/><stop offset="1" stop-color="#3b2412"/></linearGradient>
+                <linearGradient id="flag-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f0d89a"/><stop offset="0.5" stop-color="#c99a4b"/><stop offset="1" stop-color="#8f652a"/></linearGradient>
+                <filter id="flag-wind" filterUnits="userSpaceOnUse" x="14" y="-60" width="72" height="160" color-interpolation-filters="sRGB">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.035 0.05" numOctaves="2" seed="8" stitchTiles="stitch" x="0" y="0" width="100" height="60" result="noise"/>
+                  <feTile in="noise" result="tiled"/>
+                  <feOffset in="tiled" dy="0" result="moving"><animate attributeName="dy" from="0" to="60" dur="7s" repeatCount="indefinite"/></feOffset>
+                  <!-- Sırığa yakın kısım az, alt uç çok dalgalansın -->
+                  <feImage href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 100' preserveAspectRatio='none'%3E%3ClinearGradient id='g' x2='0' y2='1'%3E%3Cstop offset='0.45' stop-color='black'/%3E%3Cstop offset='0.95' stop-color='white'/%3E%3C/linearGradient%3E%3Crect width='10' height='100' fill='url(%23g)'/%3E%3C/svg%3E" x="14" y="-60" width="72" height="160" preserveAspectRatio="none" result="falloff"/>
+                  <feComposite in="moving" in2="falloff" operator="arithmetic" k1="1" k2="0" k3="-0.5" k4="0.5" result="map"/>
+                  <feDisplacementMap in="SourceGraphic" in2="map" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+                </filter>
+              </defs>
+              <path d="M22 11 L50 3 L78 11" fill="none" stroke="#a88b5c" stroke-width="0.7"/>
+              <circle cx="50" cy="3" r="1.3" fill="url(#flag-gold)"/>
+              <image href="../assets/img/rp/banner-cloth.png" x="0" y="0" width="100" height="100" filter="url(#flag-wind)"/>
+              <rect x="19" y="9.6" width="62" height="3.2" rx="1.6" fill="url(#flag-wood)"/>
+              <circle cx="19.2" cy="11.2" r="2.1" fill="url(#flag-gold)"/><circle cx="80.8" cy="11.2" r="2.1" fill="url(#flag-gold)"/>
+            </svg>
+          </h1>
+          <span class="kicker" lang="en">Mount &amp; Blade: Warband · Persistent Kingdoms</span>
+          <p class="lead">Normandiya haritasında, kalıcı karakterlerle oynanan bir rol yapma sunucusu. Oyundaki sunucu listesinde <strong>Sellennia-RP</strong> adıyla görünüyor.</p>
+          <dl class="facts">
+            <dt>Durum</dt><dd><span class="status on">Açık</span></dd>
+            <dt>Oyuncu</dt><dd>En fazla 20</dd>
+            <dt>Giriş</dt><dd>Şifreli</dd>
+          </dl>
+          <div class="actions">
+            <a class="btn btn-primary" href="katil/">Nasıl girilir</a>
+            <a class="btn btn-ghost" href="#komutlar">Komutlar</a>
+          </div>
+        </div>
+        <div class="server-list" role="img" aria-label="Oyundaki sunucu listesinde Sellennia-RP satırı">
+          <div class="bar"><span>Multiplayer</span><span>Internet</span></div>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Sunucu</th><th class="opt">Modül</th><th>Harita</th><th>Oyuncu</th></tr></thead>
+              <tbody>
+                <tr class="dim"><td>···</td><td class="opt">···</td><td>···</td><td>···</td></tr>
+                <tr class="pick"><td>Sellennia-RP</td><td class="opt">Persistent Kingdoms</td><td>Normandy</td><td>–/20</td></tr>
+                <tr class="dim"><td>···</td><td class="opt">···</td><td>···</td><td>···</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container">
+        <div class="section-title">
+          <h2>Sunucuda ne var</h2>
+        </div>
+        <div class="rows">
+          <div>
+            <h3>Kalıcı dünya</h3>
+            <p>Persistent Kingdoms'ta karakterin silinmiyor. Odun kesip satabilir, demircilik yapabilir, at yetiştirebilir ya da bir lordun askeri olabilirsin. Kazandığın para ve eşyalar sen çıktıktan sonra da duruyor.</p>
+          </div>
+          <div>
+            <h3>Krallıklar</h3>
+            <p>Sunucuda birden fazla krallık var. Birine katılıyorsun; sıkılırsan <code>/ayril</code> yazıp ölmeden ayrılabiliyorsun.</p>
+          </div>
+          <div>
+            <h3>Kişisel depo</h3>
+            <p><code>/depo</code> yazınca 12 yuvalı bir sandık açılıyor. Ona sadece sen ulaşıyorsun, içindekiler kayıtlı kalıyor. Eşyanı kasabadaki sandığa taşımadan saklamanın yolu bu.</p>
+          </div>
+          <div>
+            <h3>Harita</h3>
+            <p>Normandiya. Sende yoksa oyun ilk girişte kendisi indiriyor.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="komutlar">
+      <div class="container">
+        <div class="section-title">
+          <h2>Sohbet komutları</h2>
+          <p>Hepsini oyun içi sohbete yazıyorsun. Unutursan <code>/yardim</code> listeyi gösterir.</p>
+        </div>
+        <div class="cmd-grid">
+          <div class="chat" aria-label="Komutların sohbette kullanımına örnek">
+            <p class="typed">&gt; /me kılıcını kınından çeker</p>
+            <p class="me">* Nick kılıcını kınından çeker</p>
+            <p class="typed">&gt; /do Kapı içeriden sürgülü.</p>
+            <p class="do">* Kapı içeriden sürgülü. (Nick)</p>
+            <p class="typed">&gt; /roll 20</p>
+            <p class="roll">* Nick zar attı: 14</p>
+            <p class="typed">&gt; /ooc 5 dakika yokum</p>
+            <p class="ooc">(( Nick: 5 dakika yokum ))</p>
+          </div>
+          <ul class="cmd-list">
+            <li><div><code>/me eylem</code></div><span>Karakterinin yaptığı şeyi anlatır.</span></li>
+            <li><div><code>/do durum</code></div><span>Çevrede olan bir şeyi anlatır.</span></li>
+            <li><div><code>/ooc</code>, <code>/b</code></div><span>Karakter dışı konuşma.</span></li>
+            <li><div><code>/w</code>, <code>/low</code></div><span>Fısıltı. Sadece yanındakiler duyar.</span></li>
+            <li><div><code>/roll [n]</code></div><span>1 ile n arasında zar.</span></li>
+            <li><div><code>/try eylem</code></div><span>Bir şeyi dener; başarılı ya da başarısız çıkar.</span></li>
+            <li><div><code>/pm isim mesaj</code></div><span>Özel mesaj.</span></li>
+            <li><div><code>/depo</code>, <code>/envanter</code></div><span>Kişisel deponu açar.</span></li>
+            <li><div><code>/ayril</code>, <code>/leave</code></div><span>Krallıktan ayrılırsın.</span></li>
+            <li><div><code>/yardim</code>, <code>/help</code></div><span>Bu liste.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="galeri">
+      <div class="container">
+        <div class="section-title">
+          <h2>Ekran görüntüleri</h2>
+        </div>
+        <!-- Yeni görsel eklemek için resmi assets/img/rp/ klasörüne koy (tam boy + 640x480 -thumb) ve aşağıdaki bloklardan birini kopyala. -->
+        <div class="gallery">
+          <figure class="shot">
+            <a href="../assets/img/rp/hasat.jpg" data-lightbox data-caption="Tarlada hasat">
+              <img src="../assets/img/rp/hasat-thumb.jpg" alt="Değirmenin yanındaki buğday tarlasında tırpanla duran bir köylü" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Tarlada hasat</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../assets/img/rp/sovalyeler.jpg" data-lightbox data-caption="Aynı armayı taşıyan üç asker">
+              <img src="../assets/img/rp/sovalyeler-thumb.jpg" alt="Yeşil ağaç armalı cübbeler giymiş üç zırhlı asker kasabada yan yana duruyor" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Aynı armayı taşıyan üç asker</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../assets/img/rp/kopru.jpg" data-lightbox data-caption="Köprüdeki kalkan duvarı">
+              <img src="../assets/img/rp/kopru-thumb.jpg" alt="Taş köprünün üzerinde mor kalkanlı bir piyade birliği" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Köprüdeki kalkan duvarı</figcaption>
+          </figure>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Girmek için</h2>
+        <p class="muted">Warband ve Workshop'taki Persistent Kingdoms modülü yeterli. Adımlar ayrı sayfada.</p>
+        <div class="actions"><a class="btn btn-primary" href="katil/">Nasıl girilir</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a class="brand brand-footer" href="../"><img src="../assets/img/studios-logo.png" alt="Sellennia Studios" width="720" height="390"></a>
+      <nav aria-label="Alt menü">
+        <a href="./">Sellennia Roleplay</a>
+        <a href="katil/">Sunucuya gir</a>
+        <a href="../sellennia-helpers/">Sellennia's Helpers</a>
+      </nav>
+      <p class="legal">Bu site TaleWorlds Entertainment'ın resmî bir sitesi değildir. Mount &amp; Blade: Warband TaleWorlds Entertainment'a, Persistent Kingdoms modülü kendi geliştiricilerine aittir.</p>
+    </div>
+  </footer>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>
