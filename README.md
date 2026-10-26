@@ -1,35 +1,44 @@
-# Sellennia Studios web sitesi
+# Sellennia Studios
 
-Sellennia projelerinin tanıtım sitesi. Derleme adımı yok: düz HTML, CSS ve biraz JavaScript. GitHub Pages dosyaları olduğu gibi yayınlar.
+Sellennia Studios'un tanıtım sitesi: **https://sellennia.github.io/**
+
+Arkadaşlarımızla oynadığımız oyunlar için kurduğumuz sunucular ve yazdığımız modlar:
+
+- **Sellennia Roleplay**: Mount & Blade: Warband için Persistent Kingdoms rol yapma sunucusu
+- **Sellennia's Helpers**: Hearts of Iron IV modu
 
 ## Yapı
+
+Derleme adımı yok; düz HTML, CSS ve biraz JavaScript. GitHub Pages dosyaları olduğu gibi yayınlıyor.
 
 | Yol | İçerik |
 |---|---|
 | `index.html` | Ana sayfa |
-| `sellennia-rp/index.html` | Sellennia-RP tanıtımı ve komutlar |
-| `sellennia-rp/katil/index.html` | Sunucuya katılım rehberi |
-| `sellennia-helpers/index.html` | Sellennia's Helpers modu |
+| `sellennia-rp/` | Sellennia Roleplay sayfası ve `katil/` altında katılım rehberi |
+| `sellennia-helpers/` | Sellennia's Helpers sayfası |
 | `404.html` | Bulunamayan sayfalar |
-| `assets/css/style.css` | Tüm stiller (renkler en üstte) |
-| `assets/js/main.js` | Mobil menü ve galeri büyütme |
-| `assets/img/rp/` | Sellennia-RP ekran görüntüleri ve arması (`logo.png`) |
-| `assets/img/helpers/` | Mod görselleri |
-| `assets/img/logo.svg` | Sellennia logosu (site simgesi de bu) |
-| `brand/` | Logo dosyaları: GitHub profil resmi (yazılı logo, koyu zemin), yazılı logo (şeffaf ve koyu zeminli), yazısız gezegen SVG. Sellennia-RP için iki taslak: kalkanlı arma ve yıpranmış sancak (şeffaf ve koyu zeminli; sitede şu an sancak var). `brand/src/lockup-arc.html` yazılı logonun, `brand/src/rp-crest.html` ve `rp-banner.html` RP taslaklarının kaynağı; PNG'ler Edge ile ekran görüntüsü alınarak üretildi |
-| `.nojekyll` | GitHub Pages'in Jekyll çalıştırmamasını sağlar |
+| `assets/css/style.css` | Stiller (renkler en üstte) |
+| `assets/js/main.js` | Mobil menü, galeri büyütme |
+| `assets/img/` | Site görselleri |
+| `brand/` | Logo dosyaları; `brand/src/` içinde logoların kaynak HTML'leri |
 
-Yerelde bakmak için klasörde `python -m http.server 8080` çalıştırıp tarayıcıda `http://localhost:8080` adresini aç. (Dosyaya çift tıklamak da sayfayı açar ama menüdeki klasör bağlantıları o şekilde çalışmaz.)
+## Yerelde açmak
+
+```bash
+python -m http.server 8080
+```
+
+Sonra tarayıcıda `http://localhost:8080` adresini aç.
 
 ## Ekran görüntüsü eklemek
 
-1. Resmi JPG olarak `assets/img/rp/` klasörüne koy, yanına 640×480'lik `-thumb.jpg` küçük hâlini ekle. Discord listesi, isimler gibi kişisel şeyleri kırp.
+1. Resmi JPG olarak ilgili `assets/img/` klasörüne koy, yanına 640×480'lik `-thumb.jpg` küçük hâlini ekle.
 2. Sayfadaki galeride bir `<figure class="shot">` bloğunu kopyalayıp dosya adlarını ve açıklamayı değiştir.
 
-## İngilizce eklemek
+## İngilizce
 
-Türkçe kökte durur. İngilizce sayfalar aynı yapıyla `en/` altına gelir (`en/index.html`, `en/sellennia-rp/` ...). Sonra her sayfanın `<head>` kısmına `hreflang="en"` bağlantısı ve menüye dil seçici eklenir.
+Türkçe sayfalar kökte. İngilizce eklenince aynı yapıyla `en/` altına gelecek.
 
-## Siteye konmayacaklar
+---
 
-Sunucu IP'si, giriş/admin/panel şifreleri, SteamID'ler, sunucu ve bulut hesap bilgileri, özel repoların bağlantıları. Her commit öncesi bunları tara.
+Bu site TaleWorlds Entertainment'ın ya da Paradox Interactive'in resmî bir sitesi değildir. Mount & Blade: Warband TaleWorlds Entertainment'a, Hearts of Iron IV Paradox Interactive'e aittir.
