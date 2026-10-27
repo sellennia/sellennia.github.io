@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zanaat Listesi · Sellennia Roleplay</title>
+  <meta name="description" content="Sellennia Roleplay'de üretilebilen 578 eşya: malzemeleri, gereken beceri ve fiyatlarıyla aranabilir zanaat listesi.">
+  <meta property="og:title" content="Sellennia Roleplay zanaat listesi">
+  <meta property="og:type" content="article">
+  <link rel="alternate" hreflang="tr" href="./">
+  <link rel="icon" href="../../assets/img/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#icerik">İçeriğe geç</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" lang="en" href="../../"><img src="../../assets/img/logo.svg" alt="" width="40" height="40">Sellennia Studios</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menü</button>
+      <nav class="site-nav" id="site-nav" aria-label="Ana menü">
+        <ul>
+          <li><a href="../../">Ana sayfa</a></li>
+          <li><a href="../">Sellennia Roleplay</a></li>
+          <li><a href="../katil/">Sunucuya gir</a></li>
+          <li><a href="./" aria-current="page">Zanaat</a></li>
+          <li><a href="../../sellennia-helpers/">Sellennia's Helpers</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="icerik">
+    <section class="hero hero-compact">
+      <div class="container">
+        <span class="kicker" lang="en">Sellennia Roleplay</span>
+        <h1>Zanaat listesi</h1>
+        <p class="lead">Sunucuda üretebileceğin 578 eşya: hangi malzemeyle, hangi beceriyle yapıldığı ve kaç para ettiği.</p>
+        <ul class="craft-howto">
+          <li>Malzemeler üstünde olsun, tezgâha bak ve <strong>kullan tuşuna basılı tut</strong>. Tuşa sadece dokunursan eşyayı satın alırsın.</li>
+          <li>Sınıfının ilgili becerisi en az yazan seviyede olmalı. İki beceri yazıyorsa biri yetiyor.</li>
+          <li>Fiyatlar temel değer; oyunda vergiye ve stoğa göre değişiyor. Her tezgâh Normandiya haritasında olmayabilir.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section alt craft">
+      <div class="container">
+        <form class="craft-tools" role="search" onsubmit="return false">
+          <label class="craft-search">
+            <span>Eşya ara</span>
+            <input type="search" id="craft-q" placeholder="Eşya adı (örn. Falchion)" autocomplete="off">
+          </label>
+          <label>
+            <span>Malzeme</span>
+            <select id="craft-mat">
+              <option value="">Hepsi</option>
+            </select>
+          </label>
+          <label>
+            <span>Beceri</span>
+            <select id="craft-skill">
+              <option value="">Hepsi</option>
+              <option value="Terzilik">Terzilik</option>
+              <option value="Mühendislik">Mühendislik</option>
+              <option value="Hayvancılık">Hayvancılık</option>
+              <option value="-">Beceri gerekmeyen</option>
+            </select>
+          </label>
+          <label>
+            <span>Seviyem</span>
+            <select id="craft-level">
+              <option value="">Fark etmez</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option>
+            </select>
+          </label>
+          <label>
+            <span>Sırala</span>
+            <select id="craft-sort">
+              <option value="price">Ucuzdan pahalıya</option>
+              <option value="-price">Pahalıdan ucuza</option>
+              <option value="name">Ada göre</option>
+            </select>
+          </label>
+        </form>
+        <div class="craft-cats" id="craft-cats" role="group" aria-label="Kategori"></div>
+        <p class="craft-count" id="craft-count" aria-live="polite">Liste yükleniyor…</p>
+        <noscript><p>Liste JavaScript ile yükleniyor. Görmek için tarayıcında JavaScript'i aç.</p></noscript>
+        <ul class="craft-grid" id="craft-grid"></ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a class="brand brand-footer" href="../../"><img src="../../assets/img/studios-logo.png" alt="Sellennia Studios" width="720" height="390"></a>
+      <nav aria-label="Alt menü">
+        <a href="../">Sellennia Roleplay</a>
+        <a href="../katil/">Sunucuya gir</a>
+        <a href="./">Zanaat</a>
+        <a href="../../sellennia-helpers/">Sellennia's Helpers</a>
+      </nav>
+      <p class="legal">Bu site TaleWorlds Entertainment'ın resmî bir sitesi değildir. Mount &amp; Blade: Warband TaleWorlds Entertainment'a, Persistent Kingdoms modülü kendi geliştiricilerine aittir. Eşya görselleri oyunun ve modülün modellerinden üretildi.</p>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/craft.js"></script>
+</body>
+</html>

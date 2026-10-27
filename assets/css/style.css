@@ -424,6 +424,66 @@ code, kbd {
 .checklist li { position: relative; padding: 0.6rem 0 0.6rem 1.6rem; border-bottom: 1px solid var(--border); }
 .checklist li::before { content: ""; position: absolute; left: 0.2rem; top: 1.15rem; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--accent); }
 
+/* ---------- Zanaat listesi ---------- */
+
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.hero-compact { padding-bottom: 2.5rem; }
+.craft-howto { margin: 1.5rem 0 0; padding-left: 1.2rem; color: var(--muted); max-width: 52rem; }
+.craft-howto li { margin-bottom: 0.35rem; }
+.craft-howto strong { color: var(--text); }
+
+.craft-tools { display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; align-items: end; }
+.craft-tools label { display: grid; gap: 0.25rem; font-size: 0.9rem; color: var(--muted); }
+.craft-tools .craft-search { flex: 1 1 18rem; }
+.craft-tools input, .craft-tools select {
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.6rem 0.8rem;
+  min-height: 44px;
+}
+.craft-tools input:focus, .craft-tools select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.craft-cats { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.25rem 0 0.5rem; }
+@media (max-width: 700px) {
+  .craft-cats { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 0.4rem; scrollbar-width: thin; }
+  .craft-cats .chip { flex: none; }
+}
+.chip {
+  font: inherit;
+  font-size: 0.92rem;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  cursor: pointer;
+}
+.chip:hover { color: var(--text); border-color: var(--muted); }
+.chip.is-on { color: var(--on-accent); background: var(--accent); border-color: var(--accent); }
+
+.craft-count { color: var(--muted); margin: 0.75rem 0 1rem; }
+
+.craft-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
+.craft-card { display: flex; gap: 0.9rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.75rem; }
+.craft-pic { flex: none; width: 84px; height: 84px; border-radius: 10px; background: radial-gradient(circle at 50% 40%, var(--surface-2), var(--bg)); display: grid; place-items: center; }
+.craft-pic img { width: 76px; height: 76px; object-fit: contain; }
+.craft-nopic { font-size: 0.75rem; color: var(--muted); }
+.craft-body { min-width: 0; flex: 1; display: flex; flex-direction: column; }
+.craft-cat { font-size: 0.8rem; color: var(--accent); }
+.craft-card h3 { font-size: 1.05rem; margin: 0.1rem 0 0.4rem; }
+.craft-mats { list-style: none; margin: 0 0 0.5rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.craft-mats li { font-size: 0.82rem; background: var(--surface-2); border-radius: 6px; padding: 0.1rem 0.45rem; }
+.craft-foot { margin-top: auto; display: flex; justify-content: space-between; gap: 0.5rem; font-size: 0.88rem; }
+.craft-skill { color: var(--muted); }
+.craft-price { font-weight: 600; color: #f2c46b; white-space: nowrap; }
+.craft-price::after { content: " altın"; font-weight: 400; color: var(--muted); }
+@media (prefers-color-scheme: light) { .craft-price { color: #9a6a12; } }
+
 /* ---------- Galeri ---------- */
 
 .gallery { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
