@@ -628,6 +628,45 @@ a.prod-tile:hover .prod-label { color: var(--accent); }
   .prod-join { font-size: 0.75rem; }
 }
 
+/* ---------- Sınıflar ---------- */
+
+/* Beceri düğmeleri yapışan çubukta; telefonda yana kayar */
+.class-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.class-chips .chip { cursor: pointer; }
+@media (max-width: 700px) {
+  .class-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter); }
+  .class-chips::-webkit-scrollbar { display: none; }
+  .class-chips .chip { flex: none; }
+}
+#class-status { margin-top: 0; }
+.class-group[hidden], .class-card[hidden] { display: none; }
+.class-group + .class-group { margin-top: 3rem; }
+.class-group h2 { margin-bottom: 1.1rem; }
+
+.class-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
+.class-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.1rem 1.1rem; display: flex; flex-direction: column; }
+.class-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.1rem 0.6rem; }
+.class-head h3 { margin: 0; font-size: 1.2rem; }
+.class-tr { color: var(--muted); font-size: 0.95rem; }
+
+.class-attr { display: flex; gap: 0.5rem; margin: 0.7rem 0 0.8rem; }
+.class-attr div { display: flex; align-items: baseline; gap: 0.4rem; background: var(--surface-2); border-radius: 8px; padding: 0.2rem 0.6rem; font-size: 0.88rem; }
+.class-attr dt { color: var(--muted); }
+.class-attr dd { margin: 0; font-family: var(--font-head); font-weight: 600; font-size: 1rem; }
+
+.class-bars { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.3rem; }
+.class-bars li { display: grid; grid-template-columns: 8.5rem minmax(0, 1fr) 1.4rem; align-items: center; gap: 0.6rem; font-size: 0.92rem; border-radius: 6px; }
+.class-skill { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.class-bar { height: 6px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.class-bar i { display: block; height: 100%; border-radius: inherit; background: var(--accent-2); }
+.class-bars b { text-align: right; font-family: var(--font-head); font-weight: 600; }
+.class-bars li.is-hit { color: #f2c46b; }
+.class-bars li.is-hit .class-bar i { background: #f2c46b; }
+@media (prefers-color-scheme: light) { .class-bars li.is-hit { color: #9a6a12; } .class-bars li.is-hit .class-bar i { background: #c48a1c; } }
+@media (max-width: 420px) { .class-bars li { grid-template-columns: 7.5rem minmax(0, 1fr) 1.2rem; } }
+
+.class-note { color: var(--muted); font-size: 0.95rem; margin: 2rem 0 0; max-width: 52rem; }
+
 /* ---------- Galeri ---------- */
 
 .gallery { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }

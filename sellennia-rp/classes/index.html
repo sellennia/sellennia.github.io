@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sınıflar · Sellennia Roleplay</title>
+  <meta name="description" content="Sellennia Roleplay'deki sınıflar: güç, çeviklik ve beceri seviyeleri, hangi iş için hangi sınıf seçilir.">
+  <meta property="og:title" content="Sellennia Roleplay sınıfları">
+  <meta property="og:type" content="article">
+  <link rel="alternate" hreflang="tr" href="./">
+  <link rel="icon" href="../../assets/img/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#icerik">İçeriğe geç</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" lang="en" href="../../"><img src="../../assets/img/logo.svg" alt="" width="40" height="40">Sellennia Studios</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menü</button>
+      <nav class="site-nav" id="site-nav" aria-label="Ana menü">
+        <ul>
+          <li><a href="../../">Ana sayfa</a></li>
+          <li class="has-sub is-active">
+            <a href="../../sellennia-rp/">Sellennia Roleplay</a><button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-rp" aria-label="Sellennia Roleplay alt menüsünü aç"></button>
+            <ul class="sub" id="sub-rp">
+              <li><a href="../../sellennia-rp/nasil-girilir/">Sunucuya gir</a></li>
+              <li><a href="../../sellennia-rp/zanaat/">Zanaat</a></li>
+              <li><a href="../../sellennia-rp/uretim/">Üretim</a></li>
+              <li><a href="../../sellennia-rp/classes/" aria-current="page">Sınıflar</a></li>
+            </ul>
+          </li>
+          <li><a href="../../sellennia-helpers/">Sellennia's Helpers</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="icerik">
+    <section class="hero hero-compact">
+      <div class="container">
+        <span class="kicker" lang="en">Sellennia Roleplay</span>
+        <h1>Sınıflar</h1>
+        <p class="lead">Her sınıfın gücü, çevikliği ve beceri seviyeleri. Ne iş yapmak istediğine göre seç.</p>
+        <ul class="craft-howto">
+          <li>Beceriler 10 üzerinden. Bir beceriye bas, o beceriye sahip sınıflar en yüksekten sıralansın.</li>
+          <li>Tarifin istediği beceriyi <a href="../zanaat/">zanaat listesinde</a> görebilirsin.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="section alt prod">
+      <div class="prod-bar">
+        <div class="container">
+          <div class="class-chips" id="class-skills" role="group" aria-label="Beceriye göre süz"></div>
+        </div>
+      </div>
+      <div class="container" id="class-list">
+        <p class="craft-count" id="class-status" aria-live="polite" hidden></p>
+        <noscript><p>Sınıflar JavaScript ile yükleniyor. Görmek için tarayıcında JavaScript'i aç.</p></noscript>
+      </div>
+      <div class="container">
+        <p class="class-note">Pek çok sınıfta ayrıca <span lang="en">Musician</span> 3 var; müzik aleti çalmak için. Kartları sade tutmak için yazmadık. Yöneticilerin <span lang="en">Godlike Hero</span> sınıfı her beceride 10'dur.</p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-title">
+          <h2>Hangi iş için hangi sınıf</h2>
+          <p>Beceri ne işe yarıyor, en yüksek kimde.</p>
+        </div>
+        <div class="rows class-jobs">
+          <div><h3 lang="en">Engineer</h3><p>Odun işlemek için 1, demir işlemek için 2 gerekir. Ağır silahı ve zırhı <span lang="en">Master Smith</span> (7) ile <span lang="en">Engineer</span> (5) yapar.</p></div>
+          <div><h3 lang="en">Labouring</h3><p>Öğütme, pişirme, bira ve deri işleri. En yüksek <span lang="en">Serf</span>'te (5).</p></div>
+          <div><h3 lang="en">Tailoring</h3><p>Dokuma ve kesim. En yüksek <span lang="en">Craftsman</span>'da (3).</p></div>
+          <div><h3 lang="en">Herding</h3><p>Hayvan kesmek ve sürü gütmek. En yüksek <span lang="en">Herdsman</span>'da (5).</p></div>
+          <div><h3 lang="en">Wound Treatment</h3><p>Yaralıları iyileştirmek. <span lang="en">Healer</span> (7) ve <span lang="en">Doctor</span> (5).</p></div>
+          <div><h3 lang="en">Looting</h3><p>Kilit açmak ve yağmalamak. En yüksek <span lang="en">Brigand</span>'da (6).</p></div>
+          <div><h3 lang="en">Sailing</h3><p>Gemi kullanmak. En yüksek <span lang="en">Sailor</span>'da (9).</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a class="brand brand-footer" href="../../"><img src="../../assets/img/studios-logo.png" alt="Sellennia Studios" width="720" height="390"></a>
+      <nav aria-label="Alt menü">
+        <a href="../">Sellennia Roleplay</a>
+        <a href="../nasil-girilir/">Sunucuya gir</a>
+        <a href="../zanaat/">Zanaat</a>
+        <a href="../uretim/">Üretim</a>
+        <a href="./">Sınıflar</a>
+        <a href="../../sellennia-helpers/">Sellennia's Helpers</a>
+      </nav>
+      <p class="legal">Bu site TaleWorlds Entertainment'ın resmî bir sitesi değildir. Mount &amp; Blade: Warband TaleWorlds Entertainment'a, Persistent Kingdoms modülü kendi geliştiricilerine aittir.</p>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/siniflar.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "sivil",
+    "title": "Sivil ve zanaat sınıfları",
+    "classes": [
+      { "n": "Serf", "tr": "Köylü", "str": 5, "agi": 5, "s": [["Labouring", 5], ["Herding", 3], ["Engineer", 1], ["Tailoring", 1], ["Athletics", 1], ["Power Strike", 1], ["Riding", 1]] },
+      { "n": "Craftsman", "tr": "Zanaatkâr", "str": 8, "agi": 8, "s": [["Tailoring", 3], ["Engineer", 2], ["Labouring", 1], ["Athletics", 1], ["Power Strike", 1], ["Riding", 1]] },
+      { "n": "Healer", "tr": "Şifacı", "str": 10, "agi": 10, "s": [["Wound Treatment", 7], ["Tailoring", 2], ["Riding", 2], ["Herding", 1], ["Ironflesh", 1], ["Power Strike", 1], ["Athletics", 1]] },
+      { "n": "Doctor", "tr": "Doktor", "str": 10, "agi": 10, "s": [["Wound Treatment", 5], ["Athletics", 2], ["Power Strike", 2], ["Riding", 2], ["Ironflesh", 1]] },
+      { "n": "Herdsman", "tr": "Çoban", "str": 10, "agi": 14, "s": [["Herding", 5], ["Athletics", 5], ["Labouring", 2], ["Power Strike", 1]] },
+      { "n": "Traveler", "tr": "Gezgin", "str": 10, "agi": 13, "s": [["Sailing", 7], ["Athletics", 5], ["Power Strike", 2], ["Tailoring", 2], ["Riding", 2], ["Herding", 1], ["Labouring", 1], ["Ironflesh", 1]] },
+      { "n": "Sailor", "tr": "Denizci", "str": 14, "agi": 12, "s": [["Sailing", 9], ["Ironflesh", 3], ["Power Strike", 3], ["Athletics", 2], ["Riding", 1]] },
+      { "n": "Engineer", "tr": "Mühendis", "str": 10, "agi": 12, "s": [["Engineer", 5], ["Sailing", 4], ["Ironflesh", 2], ["Power Strike", 2], ["Athletics", 2], ["Riding", 2], ["Labouring", 1], ["Looting", 1]] },
+      { "n": "Master Smith", "tr": "Usta Demirci", "str": 12, "agi": 12, "s": [["Engineer", 7], ["Sailing", 4], ["Ironflesh", 3], ["Power Strike", 3], ["Athletics", 2], ["Riding", 2], ["Looting", 2], ["Labouring", 1]] }
+    ]
+  },
+  {
+    "id": "asker",
+    "title": "Asker sınıfları",
+    "classes": [
+      { "n": "Militia", "tr": "Milis", "str": 10, "agi": 9, "s": [["Ironflesh", 2], ["Power Strike", 2], ["Athletics", 2], ["Herding", 2], ["Labouring", 1], ["Riding", 1]] },
+      { "n": "Huntsman", "tr": "Avcı", "str": 9, "agi": 9, "s": [["Herding", 3], ["Power Draw", 2], ["Ironflesh", 1], ["Power Strike", 1], ["Athletics", 1], ["Labouring", 1], ["Riding", 1]] },
+      { "n": "Footman", "tr": "Piyade", "str": 15, "agi": 14, "s": [["Ironflesh", 5], ["Athletics", 5], ["Power Strike", 4], ["Sailing", 3], ["Power Throw", 2], ["Riding", 2], ["Shield", 1]] },
+      { "n": "Archer", "tr": "Okçu", "str": 14, "agi": 14, "s": [["Power Draw", 4], ["Athletics", 4], ["Ironflesh", 3], ["Power Strike", 3], ["Sailing", 3], ["Riding", 2]] },
+      { "n": "Crossbowman", "tr": "Arbaletçi", "str": 14, "agi": 14, "s": [["Athletics", 4], ["Ironflesh", 3], ["Power Strike", 3], ["Sailing", 3], ["Riding", 2]] },
+      { "n": "Lancer", "tr": "Mızraklı süvari", "str": 14, "agi": 14, "s": [["Riding", 6], ["Ironflesh", 3], ["Power Strike", 3], ["Power Throw", 2], ["Athletics", 1]] },
+      { "n": "Man at Arms", "tr": "Silahlı adam", "str": 15, "agi": 15, "s": [["Ironflesh", 4], ["Power Strike", 4], ["Riding", 4], ["Athletics", 2], ["Shield", 1]] },
+      { "n": "Knight", "tr": "Şövalye", "str": 15, "agi": 15, "s": [["Ironflesh", 4], ["Power Strike", 4], ["Athletics", 3], ["Riding", 3], ["Shield", 1]] },
+      { "n": "Sergeant", "tr": "Çavuş", "str": 15, "agi": 15, "s": [["Ironflesh", 5], ["Athletics", 5], ["Power Strike", 4], ["Shield", 2], ["Riding", 2]] },
+      { "n": "Lord", "tr": "Lord", "str": 15, "agi": 15, "s": [["Ironflesh", 6], ["Riding", 5], ["Power Strike", 4], ["Athletics", 3], ["Shield", 2], ["Leadership", 1]] }
+    ]
+  },
+  {
+    "id": "kanun-disi",
+    "title": "Kanun dışı ve paralı sınıflar",
+    "classes": [
+      { "n": "Ruffian", "tr": "Haydut", "str": 14, "agi": 12, "s": [["Power Strike", 4], ["Ironflesh", 3], ["Athletics", 3], ["Looting", 2], ["Riding", 1]] },
+      { "n": "Brigand", "tr": "Eşkıya", "str": 12, "agi": 12, "s": [["Looting", 6], ["Sailing", 4], ["Power Draw", 3], ["Athletics", 3], ["Ironflesh", 2], ["Power Strike", 2], ["Riding", 1]] },
+      { "n": "Mercenary", "tr": "Paralı asker", "str": 14, "agi": 14, "s": [["Ironflesh", 3], ["Power Strike", 3], ["Athletics", 3], ["Sailing", 3], ["Riding", 2], ["Engineer", 1], ["Tailoring", 1]] }
+    ]
+  }
+]
