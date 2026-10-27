@@ -156,6 +156,55 @@ code, kbd {
 .site-nav a:hover { color: var(--text); }
 .site-nav a[aria-current="page"] { color: var(--text); border-bottom-color: var(--accent); }
 
+/* Sellennia Roleplay alt menüsü: masaüstünde açılır kutu, telefonda girintili liste */
+.site-nav > ul { align-items: center; }
+.has-sub { position: relative; display: flex; align-items: center; gap: 0.2rem; }
+.has-sub.is-active > a { color: var(--text); border-bottom-color: var(--accent); }
+.sub-toggle {
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+.sub-toggle::before { content: ""; width: 0.45rem; height: 0.45rem; border: solid currentColor; border-width: 0 2px 2px 0; transform: translateY(-2px) rotate(45deg); transition: transform 0.15s ease; }
+.sub-toggle:hover { color: var(--text); background: var(--surface); }
+.has-sub.open .sub-toggle::before { transform: translateY(2px) rotate(-135deg); }
+.site-nav .sub {
+  display: none;
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: -0.75rem;
+  min-width: 13rem;
+  flex-direction: column;
+  gap: 0;
+  padding: 0.4rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+/* Fare ile kutuya geçerken menü kapanmasın */
+.site-nav .sub::before { content: ""; position: absolute; left: 0; right: 0; top: -0.6rem; height: 0.6rem; }
+.has-sub:hover > .sub, .has-sub.open > .sub, .has-sub:has(.sub a:focus-visible) > .sub { display: flex; }
+.site-nav .sub a { display: block; padding: 0.5rem 0.75rem; border: none; border-radius: 8px; }
+.site-nav .sub a:hover { background: var(--surface-2); }
+.site-nav .sub a[aria-current="page"] { color: var(--accent); background: var(--surface-2); }
+
+@media (max-width: 760px) {
+  .site-nav > ul { align-items: stretch; }
+  .has-sub { flex-wrap: wrap; }
+  .sub-toggle { display: none; }
+  .site-nav .sub { display: flex; position: static; flex-basis: 100%; min-width: 0; margin-top: 0.4rem; padding: 0 0 0 0.9rem; background: none; border: none; border-left: 2px solid var(--border); border-radius: 0; box-shadow: none; }
+  .site-nav .sub::before { display: none; }
+  .site-nav .sub a { padding: 0.35rem 0.5rem; }
+}
+
 @media (max-width: 760px) {
   .nav-toggle { display: block; }
   .site-nav {
@@ -483,6 +532,101 @@ code, kbd {
 .craft-price { font-weight: 600; color: #f2c46b; white-space: nowrap; }
 .craft-price::after { content: " altın"; font-weight: 400; color: var(--muted); }
 @media (prefers-color-scheme: light) { .craft-price { color: #9a6a12; } }
+
+/* ---------- Üretim rehberi ---------- */
+
+/* Üstte yapışan süzgeç çubuğu: bölüm sekmeleri ve arama */
+.section.prod { padding-top: 0; }
+.prod-bar {
+  position: sticky;
+  top: 64px;
+  z-index: 20;
+  background: color-mix(in srgb, var(--bg-2) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.9rem 0;
+  margin-bottom: 2rem;
+}
+.prod-bar .container { display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; align-items: center; justify-content: space-between; }
+.prod-tabs { display: flex; gap: 0.25rem; padding: 0.25rem; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; overflow-x: auto; scrollbar-width: none; max-width: 100%; transition: opacity 0.15s ease; }
+.prod-tabs::-webkit-scrollbar { display: none; }
+.prod-tabs.is-dim { opacity: 0.45; }
+.prod-tab {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.prod-tab:hover { color: var(--text); }
+.prod-tab.is-on { color: var(--on-accent); background: var(--accent); }
+.prod-tab-n { font-size: 0.78rem; font-weight: 600; min-width: 1.4rem; padding: 0 0.35rem; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+.prod-tab.is-on .prod-tab-n { background: rgba(29, 16, 48, 0.2); color: var(--on-accent); }
+.prod-search { flex: 1 1 16rem; max-width: 24rem; }
+.prod-search input {
+  width: 100%;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.55rem 1rem;
+  min-height: 44px;
+}
+.prod-search input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+#prod-status { margin-top: 0; }
+@media (max-width: 760px) {
+  .prod-bar { padding: 0.6rem 0; }
+  .prod-search { max-width: none; }
+}
+.prod-section { scroll-margin-top: 150px; }
+.prod-section + .prod-section { margin-top: 3rem; }
+.prod-section h2 { margin-bottom: 0.3rem; }
+.prod-intro { color: var(--muted); max-width: 52rem; margin-bottom: 1.25rem; }
+
+.prod-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(min(100%, 500px), 1fr)); }
+.prod-step[hidden], .prod-section[hidden] { display: none; }
+.prod-step { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 0.9rem 1rem; }
+.prod-flow { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 0.9rem; }
+.prod-group { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+.prod-arrow { color: var(--accent); font-size: 1.5rem; line-height: 1; }
+.prod-join { color: var(--muted); font-size: 0.85rem; }
+
+.prod-tile { display: flex; flex-direction: column; align-items: center; width: 88px; text-align: center; color: var(--text); text-decoration: none; }
+.prod-pic { position: relative; width: 68px; height: 68px; border-radius: 10px; display: grid; place-items: center; background: radial-gradient(circle at 50% 40%, var(--surface-2), var(--bg)); }
+.prod-pic img { width: 60px; height: 60px; object-fit: contain; }
+.prod-tile.station .prod-pic { outline: 2px solid var(--accent-2); outline-offset: -2px; }
+a.prod-tile .prod-pic { outline: 2px solid var(--accent); outline-offset: -2px; }
+a.prod-tile:hover .prod-pic { background: var(--surface-2); }
+a.prod-tile:hover .prod-label { color: var(--accent); }
+.prod-tile.is-hit .prod-pic { box-shadow: 0 0 0 3px #f2c46b; }
+.prod-tile.is-hit .prod-label { color: #f2c46b; font-weight: 600; }
+.prod-count { position: absolute; top: -6px; right: -6px; background: #f2c46b; color: #1d1030; font-weight: 700; font-size: 0.78rem; border-radius: 6px; padding: 0 0.35rem; line-height: 1.5; }
+.prod-label { font-size: 0.8rem; line-height: 1.2; margin-top: 0.35rem; }
+.prod-meta { margin: 0.6rem 0 0; color: var(--muted); font-size: 0.92rem; }
+
+/* Telefonda kartlar kısa kalsın: ikonlar küçülür, akış yan yana kalıp gerekirse alt satıra geçer */
+@media (max-width: 560px) {
+  .prod-step { padding: 0.75rem; }
+  .prod-flow { gap: 0.5rem 0.4rem; }
+  .prod-group { gap: 0.25rem; }
+  .prod-tile { width: 62px; }
+  .prod-pic { width: 52px; height: 52px; }
+  .prod-pic img { width: 46px; height: 46px; }
+  .prod-label { font-size: 0.72rem; }
+  .prod-arrow { font-size: 1.15rem; }
+  .prod-join { font-size: 0.75rem; }
+}
 
 /* ---------- Galeri ---------- */
 

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Üretim Rehberi · Sellennia Roleplay</title>
+  <meta name="description" content="Sellennia Roleplay'de ham maddeden işlenmiş malzemeye: hangi aletle toplanır, hangi tezgâhta işlenir, ne çıkar.">
+  <meta property="og:title" content="Sellennia Roleplay üretim rehberi">
+  <meta property="og:type" content="article">
+  <link rel="alternate" hreflang="tr" href="./">
+  <link rel="icon" href="../../assets/img/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#icerik">İçeriğe geç</a>
+
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" lang="en" href="../../"><img src="../../assets/img/logo.svg" alt="" width="40" height="40">Sellennia Studios</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menü</button>
+      <nav class="site-nav" id="site-nav" aria-label="Ana menü">
+        <ul>
+          <li><a href="../../">Ana sayfa</a></li>
+          <li class="has-sub is-active">
+            <a href="../../sellennia-rp/">Sellennia Roleplay</a><button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-rp" aria-label="Sellennia Roleplay alt menüsünü aç"></button>
+            <ul class="sub" id="sub-rp">
+              <li><a href="../../sellennia-rp/nasil-girilir/">Sunucuya gir</a></li>
+              <li><a href="../../sellennia-rp/zanaat/">Zanaat</a></li>
+              <li><a href="../../sellennia-rp/uretim/" aria-current="page">Üretim</a></li>
+            </ul>
+          </li>
+          <li><a href="../../sellennia-helpers/">Sellennia's Helpers</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="icerik">
+    <section class="hero hero-compact">
+      <div class="container">
+        <span class="kicker" lang="en">Sellennia Roleplay</span>
+        <h1>Üretim rehberi</h1>
+        <p class="lead">Ham maddeden işlenmiş malzemeye: hangi aletle toplanır, hangi tezgâhta işlenir, ne çıkar.</p>
+        <ul class="craft-howto">
+          <li>Tezgâhta işlenecek malzemeyi <strong>elinde tut</strong> ve kullan tuşuna <strong>basılı tut</strong>.</li>
+          <li>Ürünler önüne yere düşer; uzun süre yerde kalanlar kaybolur.</li>
+          <li>Bu malzemelerle neler yapılır? Pembe çerçeveli ürüne tıklarsan <a href="../zanaat/">zanaat listesinde</a> onu isteyen tarifler açılır.</li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="section alt prod">
+      <div class="prod-bar">
+        <div class="container">
+          <div class="prod-tabs" id="prod-tabs" role="tablist" aria-label="Bölümler"></div>
+          <label class="prod-search">
+            <span class="sr-only">Eşya ya da tezgâh ara</span>
+            <input type="search" id="prod-q" placeholder="Eşya ya da tezgâh ara (örn. Iron Bar, Fırın)" autocomplete="off">
+          </label>
+        </div>
+      </div>
+      <div class="container" id="prod-list">
+        <p class="craft-count" id="prod-status" aria-live="polite">Rehber yükleniyor…</p>
+        <noscript><p>Rehber JavaScript ile yükleniyor. Görmek için tarayıcında JavaScript'i aç.</p></noscript>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a class="brand brand-footer" href="../../"><img src="../../assets/img/studios-logo.png" alt="Sellennia Studios" width="720" height="390"></a>
+      <nav aria-label="Alt menü">
+        <a href="../">Sellennia Roleplay</a>
+        <a href="../nasil-girilir/">Sunucuya gir</a>
+        <a href="../zanaat/">Zanaat</a>
+        <a href="./">Üretim</a>
+        <a href="../../sellennia-helpers/">Sellennia's Helpers</a>
+      </nav>
+      <p class="legal">Bu site TaleWorlds Entertainment'ın resmî bir sitesi değildir. Mount &amp; Blade: Warband TaleWorlds Entertainment'a, Persistent Kingdoms modülü kendi geliştiricilerine aittir. Eşya görselleri oyunun ve modülün modellerinden üretildi.</p>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+  <script src="../../assets/js/uretim.js"></script>
+</body>
+</html>

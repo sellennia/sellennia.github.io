@@ -146,7 +146,12 @@
         matSel.appendChild(o);
       });
       [q, matSel, skillSel, levelSel, sortSel].forEach(function (c) { c.addEventListener("input", update); });
+      // Üretim rehberinden gelen bağlantılar: ?malzeme=Iron%20Bar ya da ?q=falchion
+      var params = new URLSearchParams(location.search);
+      if (params.get("malzeme") && mats[params.get("malzeme")]) matSel.value = params.get("malzeme");
+      if (params.get("q")) q.value = params.get("q");
       update();
+      if (matSel.value || q.value) document.querySelector(".craft-tools").scrollIntoView();
     })
     .catch(function () {
       count.textContent = "Liste yüklenemedi. Sayfayı yenilemeyi dene.";

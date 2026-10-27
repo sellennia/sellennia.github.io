@@ -1,1 +1,3 @@
 .claude/
+# Veri aktarma betikleri yerelde kalır, siteye yayınlanmaz
+tools/

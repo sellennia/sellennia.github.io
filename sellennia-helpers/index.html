@@ -27,10 +27,15 @@
       <nav class="site-nav" id="site-nav" aria-label="Ana menü">
         <ul>
           <li><a href="../">Ana sayfa</a></li>
-          <li><a href="../sellennia-rp/">Sellennia Roleplay</a></li>
-          <li><a href="../sellennia-rp/nasil-girilir/">Sunucuya gir</a></li>
-          <li><a href="../sellennia-rp/zanaat/">Zanaat</a></li>
-          <li><a href="./" aria-current="page">Sellennia's Helpers</a></li>
+          <li class="has-sub">
+            <a href="../sellennia-rp/">Sellennia Roleplay</a><button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-rp" aria-label="Sellennia Roleplay alt menüsünü aç"></button>
+            <ul class="sub" id="sub-rp">
+              <li><a href="../sellennia-rp/nasil-girilir/">Sunucuya gir</a></li>
+              <li><a href="../sellennia-rp/zanaat/">Zanaat</a></li>
+              <li><a href="../sellennia-rp/uretim/">Üretim</a></li>
+            </ul>
+          </li>
+          <li><a href="../sellennia-helpers/" aria-current="page">Sellennia's Helpers</a></li>
         </ul>
       </nav>
     </div>
@@ -284,6 +289,7 @@
         <a href="../sellennia-rp/">Sellennia Roleplay</a>
         <a href="../sellennia-rp/nasil-girilir/">Sunucuya gir</a>
         <a href="../sellennia-rp/zanaat/">Zanaat</a>
+        <a href="../sellennia-rp/uretim/">Üretim</a>
         <a href="./">Sellennia's Helpers</a>
       </nav>
       <p class="legal">Bu site Paradox Interactive'in resmî bir sitesi değildir. Hearts of Iron IV Paradox Interactive'e aittir.</p>

@@ -26,9 +26,14 @@
       <nav class="site-nav" id="site-nav" aria-label="Ana menü">
         <ul>
           <li><a href="../">Ana sayfa</a></li>
-          <li><a href="./" aria-current="page">Sellennia Roleplay</a></li>
-          <li><a href="nasil-girilir/">Sunucuya gir</a></li>
-          <li><a href="zanaat/">Zanaat</a></li>
+          <li class="has-sub is-active">
+            <a href="../sellennia-rp/" aria-current="page">Sellennia Roleplay</a><button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-rp" aria-label="Sellennia Roleplay alt menüsünü aç"></button>
+            <ul class="sub" id="sub-rp">
+              <li><a href="../sellennia-rp/nasil-girilir/">Sunucuya gir</a></li>
+              <li><a href="../sellennia-rp/zanaat/">Zanaat</a></li>
+              <li><a href="../sellennia-rp/uretim/">Üretim</a></li>
+            </ul>
+          </li>
           <li><a href="../sellennia-helpers/">Sellennia's Helpers</a></li>
         </ul>
       </nav>
@@ -181,9 +186,9 @@
       <div class="container">
         <div class="section-title">
           <h2>Ne üretebilirim?</h2>
-          <p>578 tarifin hepsi malzemeleri, gereken beceri ve fiyatlarıyla zanaat listesinde. Eşya adıyla arayabilir; malzemeye, becerine ve seviyene göre süzebilirsin.</p>
+          <p>578 tarifin hepsi malzemeleri, gereken beceri ve fiyatlarıyla zanaat listesinde. Eşya adıyla arayabilir; malzemeye, becerine ve seviyene göre süzebilirsin. Malzemeleri nasıl elde edeceğin de üretim rehberinde.</p>
         </div>
-        <div class="actions"><a class="btn btn-primary" href="zanaat/">Zanaat listesini aç</a></div>
+        <div class="actions"><a class="btn btn-primary" href="zanaat/">Zanaat listesini aç</a><a class="btn btn-ghost" href="uretim/">Üretim rehberi</a></div>
       </div>
     </section>
 
@@ -203,6 +208,7 @@
         <a href="./">Sellennia Roleplay</a>
         <a href="nasil-girilir/">Sunucuya gir</a>
         <a href="zanaat/">Zanaat</a>
+        <a href="uretim/">Üretim</a>
         <a href="../sellennia-helpers/">Sellennia's Helpers</a>
       </nav>
       <p class="legal">Bu site TaleWorlds Entertainment'ın resmî bir sitesi değildir. Mount &amp; Blade: Warband TaleWorlds Entertainment'a, Persistent Kingdoms modülü kendi geliştiricilerine aittir.</p>

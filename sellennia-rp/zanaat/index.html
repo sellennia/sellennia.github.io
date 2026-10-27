@@ -25,9 +25,14 @@
       <nav class="site-nav" id="site-nav" aria-label="Ana menü">
         <ul>
           <li><a href="../../">Ana sayfa</a></li>
-          <li><a href="../">Sellennia Roleplay</a></li>
-          <li><a href="../nasil-girilir/">Sunucuya gir</a></li>
-          <li><a href="./" aria-current="page">Zanaat</a></li>
+          <li class="has-sub is-active">
+            <a href="../../sellennia-rp/">Sellennia Roleplay</a><button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-rp" aria-label="Sellennia Roleplay alt menüsünü aç"></button>
+            <ul class="sub" id="sub-rp">
+              <li><a href="../../sellennia-rp/nasil-girilir/">Sunucuya gir</a></li>
+              <li><a href="../../sellennia-rp/zanaat/" aria-current="page">Zanaat</a></li>
+              <li><a href="../../sellennia-rp/uretim/">Üretim</a></li>
+            </ul>
+          </li>
           <li><a href="../../sellennia-helpers/">Sellennia's Helpers</a></li>
         </ul>
       </nav>
@@ -44,6 +49,7 @@
           <li>Malzemeler üstünde olsun, tezgâha bak ve <strong>kullan tuşuna basılı tut</strong>. Tuşa sadece dokunursan eşyayı satın alırsın.</li>
           <li>Sınıfının ilgili becerisi en az yazan seviyede olmalı. İki beceri yazıyorsa biri yetiyor.</li>
           <li>Fiyatlar temel değer; oyunda vergiye ve stoğa göre değişiyor. Her tezgâh Normandiya haritasında olmayabilir.</li>
+          <li>Malzemeleri nereden ve nasıl elde edeceğin <a href="../uretim/">üretim rehberinde</a>.</li>
         </ul>
       </div>
     </section>
@@ -102,6 +108,7 @@
         <a href="../">Sellennia Roleplay</a>
         <a href="../nasil-girilir/">Sunucuya gir</a>
         <a href="./">Zanaat</a>
+        <a href="../uretim/">Üretim</a>
         <a href="../../sellennia-helpers/">Sellennia's Helpers</a>
       </nav>
       <p class="legal">Bu site TaleWorlds Entertainment'ın resmî bir sitesi değildir. Mount &amp; Blade: Warband TaleWorlds Entertainment'a, Persistent Kingdoms modülü kendi geliştiricilerine aittir. Eşya görselleri oyunun ve modülün modellerinden üretildi.</p>

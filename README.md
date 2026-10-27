@@ -14,13 +14,14 @@ Derleme adımı yok; düz HTML, CSS ve biraz JavaScript. GitHub Pages dosyaları
 | Yol | İçerik |
 |---|---|
 | `index.html` | Ana sayfa |
-| `sellennia-rp/` | Sellennia Roleplay sayfası; `nasil-girilir/` katılım rehberi, `zanaat/` aranabilir zanaat listesi |
+| `sellennia-rp/` | Sellennia Roleplay sayfası; `nasil-girilir/` katılım rehberi, `zanaat/` aranabilir zanaat listesi, `uretim/` üretim rehberi |
 | `sellennia-helpers/` | Sellennia's Helpers sayfası |
 | `404.html` | Bulunamayan sayfalar |
 | `assets/css/style.css` | Stiller (renkler en üstte) |
 | `assets/js/main.js` | Mobil menü, galeri büyütme |
 | `assets/js/craft.js` | Zanaat listesinin arama ve süzgeçleri |
-| `assets/data/craft.json` | Zanaat tarifleri |
+| `assets/js/uretim.js` | Üretim rehberini çizer |
+| `assets/data/` | Zanaat tarifleri ve üretim adımları |
 | `assets/img/` | Site görselleri |
 | `brand/` | Logo dosyaları; `brand/src/` içinde logoların kaynak HTML'leri |
 

@@ -10,6 +10,22 @@
     });
   }
 
+  // Alt menü: ok düğmesi tıklayınca/dokununca açar, dışarı tıklayınca ya da Esc ile kapanır.
+  document.querySelectorAll(".has-sub").forEach(function (item) {
+    var btn = item.querySelector(".sub-toggle");
+    if (!btn) return;
+    function set(open) {
+      item.classList.toggle("open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    }
+    btn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      set(!item.classList.contains("open"));
+    });
+    document.addEventListener("click", function (e) { if (!item.contains(e.target)) set(false); });
+    item.addEventListener("keydown", function (e) { if (e.key === "Escape") { set(false); btn.focus(); } });
+  });
+
   // Hareketi azaltmak isteyenlerde sancağın dalgalanmasını durdur.
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     document.querySelectorAll("svg.flag").forEach(function (svg) { svg.pauseAnimations(); });
