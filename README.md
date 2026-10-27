@@ -14,7 +14,7 @@ Derleme adımı yok; düz HTML, CSS ve biraz JavaScript. GitHub Pages dosyaları
 | Yol | İçerik |
 |---|---|
 | `index.html` | Ana sayfa |
-| `sellennia-rp/` | Sellennia Roleplay sayfası; `katil/` katılım rehberi, `zanaat/` aranabilir zanaat listesi |
+| `sellennia-rp/` | Sellennia Roleplay sayfası; `nasil-girilir/` katılım rehberi, `zanaat/` aranabilir zanaat listesi |
 | `sellennia-helpers/` | Sellennia's Helpers sayfası |
 | `404.html` | Bulunamayan sayfalar |
 | `assets/css/style.css` | Stiller (renkler en üstte) |
@@ -36,16 +36,6 @@ Sonra tarayıcıda `http://localhost:8080` adresini aç.
 
 1. Resmi JPG olarak ilgili `assets/img/` klasörüne koy, yanına 640×480'lik `-thumb.jpg` küçük hâlini ekle.
 2. Sayfadaki galeride bir `<figure class="shot">` bloğunu kopyalayıp dosya adlarını ve açıklamayı değiştir.
-
-## Zanaat listesini güncellemek
-
-Liste sunucunun modül kaynağından üretilen tablodan geliyor. Tablo ve eşya görselleri yenilenince:
-
-```bash
-python -I tools/craft_to_json.py <craft-listesi.md> <craft-img klasörü>
-```
-
-Bu komut `assets/data/craft.json` dosyasını yeniden yazar ve görselleri `assets/img/rp/craft/` klasörüne kopyalar.
 
 ## İngilizce
 

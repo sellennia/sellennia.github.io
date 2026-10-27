@@ -1,5 +1,5 @@
 // Zanaat listesi: assets/data/craft.json'u okur, arama ve süzgeçlerle kartları gösterir.
-// JSON'u tools/craft_to_json.py üretiyor.
+// JSON, mb-mod'daki scripts/craft-list/craft_to_json.py ile üretiliyor.
 
 (function () {
   var grid = document.getElementById("craft-grid");
