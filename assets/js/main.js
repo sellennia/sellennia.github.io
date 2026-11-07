@@ -1,4 +1,4 @@
-// Mobil menü ve galeri büyütme penceresi.
+// Mobil menü, sancak hareketi ve galeri büyütme penceresi.
 
 (function () {
   var toggle = document.querySelector(".nav-toggle");
@@ -10,21 +10,29 @@
     });
   }
 
-  // Alt menü: ok düğmesi tıklayınca/dokununca açar, dışarı tıklayınca ya da Esc ile kapanır.
-  document.querySelectorAll(".has-sub").forEach(function (item) {
-    var btn = item.querySelector(".sub-toggle");
-    if (!btn) return;
-    function set(open) {
-      item.classList.toggle("open", open);
-      btn.setAttribute("aria-expanded", open ? "true" : "false");
-    }
-    btn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      set(!item.classList.contains("open"));
+  // Tambur menü: her sekmeye seçili olana uzaklığını yaz, seçili olanı ortaya getir.
+  var drum = document.querySelector(".drum ul");
+  var cur = drum && drum.querySelector("a[aria-current]");
+  if (cur) {
+    var items = Array.prototype.slice.call(drum.children);
+    var at = items.indexOf(cur.parentNode);
+    items.forEach(function (li, i) {
+      li.style.setProperty("--d", i - at);
+      li.style.setProperty("--ad", Math.abs(i - at));
     });
-    document.addEventListener("click", function (e) { if (!item.contains(e.target)) set(false); });
-    item.addEventListener("keydown", function (e) { if (e.key === "Escape") { set(false); btn.focus(); } });
-  });
+    var center = function () {
+      if (window.matchMedia("(min-width: 1000px)").matches) {
+        // Dikey: seçili sekme ekranın ortasında dursun
+        drum.style.setProperty("--shift", (drum.offsetHeight / 2 - (cur.offsetTop + cur.offsetHeight / 2)) + "px");
+      } else {
+        drum.style.removeProperty("--shift");
+        drum.scrollLeft = cur.offsetLeft + cur.offsetWidth / 2 - drum.clientWidth / 2;
+      }
+    };
+    center();
+    window.addEventListener("resize", center);
+    if (document.fonts) document.fonts.ready.then(center);
+  }
 
   // Hareketi azaltmak isteyenlerde sancağın dalgalanmasını durdur.
   if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {

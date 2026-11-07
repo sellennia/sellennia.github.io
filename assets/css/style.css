@@ -156,53 +156,107 @@ code, kbd {
 .site-nav a:hover { color: var(--text); }
 .site-nav a[aria-current="page"] { color: var(--text); border-bottom-color: var(--accent); }
 
-/* Sellennia Roleplay alt menüsü: masaüstünde açılır kutu, telefonda girintili liste */
-.site-nav > ul { align-items: center; }
-.has-sub { position: relative; display: flex; align-items: center; gap: 0.2rem; }
-.has-sub.is-active > a { color: var(--text); border-bottom-color: var(--accent); }
-.sub-toggle {
-  width: 1.6rem;
-  height: 1.6rem;
-  padding: 0;
-  border: none;
-  border-radius: 6px;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-}
-.sub-toggle::before { content: ""; width: 0.45rem; height: 0.45rem; border: solid currentColor; border-width: 0 2px 2px 0; transform: translateY(-2px) rotate(45deg); transition: transform 0.15s ease; }
-.sub-toggle:hover { color: var(--text); background: var(--surface); }
-.has-sub.open .sub-toggle::before { transform: translateY(2px) rotate(-135deg); }
-.site-nav .sub {
-  display: none;
-  position: absolute;
-  top: calc(100% + 0.5rem);
-  left: -0.75rem;
-  min-width: 13rem;
-  flex-direction: column;
-  gap: 0;
-  padding: 0.4rem;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-}
-/* Fare ile kutuya geçerken menü kapanmasın */
-.site-nav .sub::before { content: ""; position: absolute; left: 0; right: 0; top: -0.6rem; height: 0.6rem; }
-.has-sub:hover > .sub, .has-sub.open > .sub, .has-sub:has(.sub a:focus-visible) > .sub { display: flex; }
-.site-nav .sub a { display: block; padding: 0.5rem 0.75rem; border: none; border-radius: 8px; }
-.site-nav .sub a:hover { background: var(--surface-2); }
-.site-nav .sub a[aria-current="page"] { color: var(--accent); background: var(--surface-2); }
+.site-nav li.is-active > a { color: var(--text); border-bottom-color: var(--accent); }
 
-@media (max-width: 760px) {
-  .site-nav > ul { align-items: stretch; }
-  .has-sub { flex-wrap: wrap; }
-  .sub-toggle { display: none; }
-  .site-nav .sub { display: flex; position: static; flex-basis: 100%; min-width: 0; margin-top: 0.4rem; padding: 0 0 0 0.9rem; background: none; border: none; border-left: 2px solid var(--border); border-radius: 0; box-shadow: none; }
-  .site-nav .sub::before { display: none; }
-  .site-nav .sub a { padding: 0.35rem 0.5rem; }
+/* Sellennia Roleplay sayfalarında tambur menü.
+   Bulunduğun sayfa ortada ve büyük; uzaklaştıkça sekmeler küçülür, solar ve tambur gibi geriye döner.
+   --d sekmenin seçili olana uzaklığı (eksi yukarı), --ad mutlak değeri; main.js yazıyor. */
+.drum { --rail: 190px; }
+.drum ul { list-style: none; margin: 0; padding: 0; }
+.drum li { --d: 0; --ad: 0; }
+.drum a {
+  display: block;
+  white-space: nowrap;
+  color: var(--muted);
+  text-decoration: none;
+  font-family: var(--font-head);
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  opacity: max(0.4, calc(1 - var(--ad) * 0.2));
+  transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), opacity 0.35s ease, color 0.2s ease;
+}
+.drum a:hover { color: var(--text); opacity: 1; }
+.drum a[aria-current="page"] { color: var(--text); }
+
+@media (min-width: 1000px) {
+  .drum {
+    position: fixed;
+    left: 0;
+    top: 64px;
+    bottom: 0;
+    width: var(--rail);
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+  }
+  .drum .container { width: 100%; padding: 0 0 0 1.5rem; margin: 0; perspective: 600px; }
+  .drum ul {
+    pointer-events: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 0.5rem 0 0.5rem 1rem;
+    transform: translateY(var(--shift, 0px));
+    transition: transform 0.35s cubic-bezier(.2, .8, .2, 1);
+  }
+  /* Tamburun ekseni: uçlara doğru kaybolan ince çizgi */
+  .drum ul::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: -2rem;
+    bottom: -2rem;
+    width: 1px;
+    background: linear-gradient(transparent, var(--border) 25%, var(--border) 75%, transparent);
+  }
+  .drum a {
+    padding: 0.3rem 0.4rem;
+    transform-origin: left center;
+    transform: rotateX(clamp(-34deg, calc(var(--d) * -16deg), 34deg)) scale(max(0.8, calc(1 - var(--ad) * 0.09)));
+  }
+  .drum a[aria-current="page"] { font-size: 1.3rem; position: relative; }
+  .drum a[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    left: -1rem;
+    top: 0.25rem;
+    bottom: 0.25rem;
+    width: 3px;
+    margin-left: -1px;
+    border-radius: 3px;
+    background: var(--accent);
+  }
+  /* Üstüne gelince tambur düzleşir, hepsi rahat okunur */
+  .drum ul:hover a, .drum ul:focus-within a { transform: none; opacity: 1; }
+
+  /* İçerik tamburun altında kalmasın: dar ekranlarda sayfa sağa kayar, arka planlar yine tam genişlik */
+  .drum ~ main .container,
+  .drum ~ .site-footer .container {
+    width: auto;
+    margin-left: max(190px, calc((100% - var(--max)) / 2));
+    margin-right: auto;
+  }
+}
+
+/* Telefon ve tablet: aynı tambur yatay; seçili sekme ortada, kenarlara doğru küçülür */
+@media (max-width: 999px) {
+  .drum { border-bottom: 1px solid var(--border); background: var(--bg-2); }
+  .drum .container { padding: 0; max-width: none; }
+  .drum ul {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0.55rem 50%;
+    mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
+  }
+  .drum ul::-webkit-scrollbar { display: none; }
+  .drum a { padding: 0.25rem 0.55rem; transform: scale(calc(1 - var(--ad) * 0.12)); }
+  .drum a[aria-current="page"] { font-size: 1.15rem; color: var(--accent); }
 }
 
 @media (max-width: 760px) {
@@ -436,6 +490,16 @@ code, kbd {
 .faq details { border-bottom: 1px solid var(--border); padding: 1rem 0; }
 .faq summary { cursor: pointer; font-weight: 600; }
 .faq details p { color: var(--muted); margin: 0.6rem 0 0; }
+
+.section-title .status { font-weight: 600; font-size: 0.95rem; }
+.cmd-grid .checklist li:first-child { padding-top: 0; }
+.cmd-grid .checklist li:first-child::before { top: 0.55rem; }
+
+.info-cards { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); }
+.info-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.35rem 0.6rem; }
+.info-card h3 { margin-bottom: 0.4rem; }
+.info-card .checklist li { font-size: 1rem; }
+.info-card .checklist li:last-child { border-bottom: none; }
 
 .prose { max-width: 44rem; }
 .prose ul { padding-left: 1.2rem; }

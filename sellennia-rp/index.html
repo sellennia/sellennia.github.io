@@ -26,20 +26,24 @@
       <nav class="site-nav" id="site-nav" aria-label="Ana menü">
         <ul>
           <li><a href="../">Ana sayfa</a></li>
-          <li class="has-sub is-active">
-            <a href="../sellennia-rp/" aria-current="page">Sellennia Roleplay</a><button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-rp" aria-label="Sellennia Roleplay alt menüsünü aç"></button>
-            <ul class="sub" id="sub-rp">
-              <li><a href="../sellennia-rp/nasil-girilir/">Sunucuya gir</a></li>
-              <li><a href="../sellennia-rp/zanaat/">Zanaat</a></li>
-              <li><a href="../sellennia-rp/uretim/">Üretim</a></li>
-              <li><a href="../sellennia-rp/classes/">Sınıflar</a></li>
-            </ul>
-          </li>
+          <li class="is-active"><a href="../sellennia-rp/" aria-current="page">Sellennia Roleplay</a></li>
           <li><a href="../sellennia-helpers/">Sellennia's Helpers</a></li>
         </ul>
       </nav>
     </div>
   </header>
+
+  <nav class="drum" aria-label="Sellennia Roleplay sayfaları">
+    <div class="container">
+      <ul>
+        <li><a href="./" aria-current="page">Genel bakış</a></li>
+        <li><a href="nasil-girilir/">Sunucuya gir</a></li>
+        <li><a href="zanaat/">Zanaat</a></li>
+        <li><a href="uretim/">Üretim</a></li>
+        <li><a href="classes/">Sınıflar</a></li>
+      </ul>
+    </div>
+  </nav>
 
   <main id="icerik">
     <section class="hero">
@@ -148,9 +152,122 @@
             <li><div><code>/try eylem</code></div><span>Bir şeyi dener; başarılı ya da başarısız çıkar.</span></li>
             <li><div><code>/pm isim mesaj</code></div><span>Özel mesaj.</span></li>
             <li><div><code>/depo</code>, <code>/envanter</code></div><span>Kişisel deponu açar.</span></li>
+            <li><div><code>/ses</code></div><span><a href="#sesli-sohbet">Sesli sohbet</a> için 6 haneli, tek kullanımlık kod verir. Kod 10 dakika geçerli.</span></li>
+            <li><div><code>/atbagla</code></div><span>En son bindiğin atı <a href="#ahir">ahıra</a> bağlar.</span></li>
+            <li><div><code>/atgetir</code></div><span>Ahırdaki atını yanına getirir.</span></li>
             <li><div><code>/ayril</code>, <code>/leave</code></div><span>Krallıktan ayrılırsın.</span></li>
             <li><div><code>/yardim</code>, <code>/help</code></div><span>Bu liste.</span></li>
           </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="sesli-sohbet">
+      <div class="container">
+        <div class="section-title">
+          <h2>Sesli sohbet</h2>
+          <p><span class="status dev">Deneme aşamasında</span></p>
+          <p>Yakınındakilerle tarayıcı üzerinden sesli konuşabilirsin. Ses, karakterlerin oyundaki mesafesine göre ayarlanıyor.</p>
+        </div>
+        <div class="cmd-grid">
+          <ol class="steps">
+            <li>
+              <h3>Kodu al</h3>
+              <p>Oyunda Q ile yerel sohbeti aç ve <code>/ses</code> yaz. Sana bir adres ve 6 haneli bir kod gelir. Kod 10 dakika geçerli ve bir kez kullanılır.</p>
+            </li>
+            <li>
+              <h3>Adresi aç</h3>
+              <p>Adresi tarayıcıda aç ve kodu gir. Chrome, Edge, Firefox ya da Safari olur.</p>
+            </li>
+            <li>
+              <h3>Mikrofona izin ver</h3>
+              <p>Tarayıcı mikrofon izni ister. Sayfadaki düğmeyle mikrofonu istediğin zaman açıp kapatabilirsin.</p>
+            </li>
+          </ol>
+          <ul class="checklist">
+            <li>3 metre içindekileri tam duyarsın. Uzaklaştıkça ses azalır, 30 metreden sonra hiç duyulmaz. Sesin sağdan mı soldan mı geldiği de oyundaki konuma göre.</li>
+            <li>Ölüyken ya da oyunda değilken kimseyi duymazsın, kimse de seni duymaz.</li>
+            <li>Kulaklık kullan; hoparlörden yankı olur.</li>
+            <li>Sayfa kimin konuştuğunu, isimleri ya da mesafeleri göstermez; krallıklar arasında bilgi sızmasın diye. Sadece kaç kişinin bağlı olduğu görünür.</li>
+            <li>Sayfa seni 12 saat hatırlar. Sunucu yeniden başlarsa <code>/ses</code> ile yeni kod al.</li>
+            <li>Adminler bir oyuncuyu sesli sohbette susturabilir.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="ahir">
+      <div class="container">
+        <div class="section-title">
+          <h2>At ahırı</h2>
+          <p>Atını ahıra bağlarsan kaybolmaz; ihtiyacın olunca yanına çağırırsın.</p>
+        </div>
+        <div class="rows">
+          <div>
+            <h3><code>/atbagla</code></h3>
+            <p>En son bindiğin atı ahıra koyar. At 5 metre içinde durmalı, üstünde kimse olmamalı ve arabası bağlı olmamalı. Attayken çalışmaz, önce in.</p>
+          </div>
+          <div>
+            <h3><code>/atgetir</code></h3>
+            <p>Atını yanına getirir. Canı, ahıra koyduğun andaki kadardır. Attayken çalışmaz.</p>
+          </div>
+          <div>
+            <h3>Bilmen gerekenler</h3>
+            <p>Ahırda kişi başı tek at durur. Ölünce, oyundan çıkınca ya da sunucu yeniden başlayınca at kaybolmaz.</p>
+            <p>İki at komutu arasında 10 saniye beklemen gerekir. İnek, domuz gibi sürü hayvanları ahıra konamaz.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt" id="hayatta-kalmak">
+      <div class="container">
+        <div class="section-title">
+          <h2>Yemek ve ölüm</h2>
+        </div>
+        <div class="info-cards">
+          <div class="info-card" id="aclik">
+            <h3>Yemek ve açlık</h3>
+            <ul class="checklist">
+              <li>Açlıktan ölmezsin.</li>
+              <li>Yemek iyileşmenin ve çalışmanın yakıtı. Canın eksikken yemek harcanır ve can kendiliğinden dolar. Yemeğin bitince kendiliğinden iyileşme durur.</li>
+              <li>Dinlenme noktalarında dinlenmek de yemek harcar; açken dinlenemezsin.</li>
+              <li>Açken odun, maden, tarla gibi işlerde daha az verimli çalışırsın.</li>
+              <li>Yiyeceği eline al ve saldırı tuşuyla ye.</li>
+              <li>Ölünce yemek çubuğun neredeyse sıfırlanır.</li>
+            </ul>
+          </div>
+          <div class="info-card" id="olum">
+            <h3>Ölünce ne olur</h3>
+            <ul class="checklist">
+              <li>Üzerindeki eşyalar yere düşer; başkaları ganimet olarak alabilir.</li>
+              <li>Kesedeki altın sadece seni başka bir krallıktan biri öldürdüyse ya da halktansan veya kanun kaçağıysan düşer.</li>
+              <li>Aynı krallıktan birini öldürmek altın düşürmez. Öldüreni kanun kaçağı olmaya yaklaştırır.</li>
+              <li>Bankadaki altın, <code>/depo</code>'daki eşyalar ve ahırdaki at güvende kalır.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="kurallar">
+      <div class="container">
+        <div class="section-title">
+          <h2>Sohbet ve kurallar</h2>
+        </div>
+        <div class="rows">
+          <div>
+            <h3>Yerel sohbet</h3>
+            <p>T ile açılan genel sohbeti adminler kapatabilir. Yakınındakilerle konuşmak için her zaman Q'yu, yani yerel sohbeti kullan.</p>
+          </div>
+          <div>
+            <h3>Etkinlikler</h3>
+            <p>Etkinliklerde adminler herkesi dondurabilir, hasarı kapatabilir, canları ve açlığı yenileyebilir. Bunlar ekranın ortasında duyuru olarak çıkar.</p>
+          </div>
+          <div>
+            <h3>Kayıtlar</h3>
+            <p>Sunucu sohbeti, vuruşları, öldürmeleri ve eşya alıp vermeyi kaydeder. Şikâyet olursa adminler bu kayıtlara bakar. Kayıtlar 60 gün tutulur.</p>
+          </div>
         </div>
       </div>
     </section>
