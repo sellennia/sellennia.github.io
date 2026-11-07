@@ -10,28 +10,82 @@
     });
   }
 
-  // Tambur menü: her sekmeye seçili olana uzaklığını yaz, seçili olanı ortaya getir.
-  var drum = document.querySelector(".drum ul");
-  var cur = drum && drum.querySelector("a[aria-current]");
-  if (cur) {
-    var items = Array.prototype.slice.call(drum.children);
-    var at = items.indexOf(cur.parentNode);
-    items.forEach(function (li, i) {
-      li.style.setProperty("--d", i - at);
-      li.style.setProperty("--ad", Math.abs(i - at));
-    });
-    var center = function () {
-      if (window.matchMedia("(min-width: 1000px)").matches) {
-        // Dikey: seçili sekme ekranın ortasında dursun
-        drum.style.setProperty("--shift", (drum.offsetHeight / 2 - (cur.offsetTop + cur.offsetHeight / 2)) + "px");
-      } else {
-        drum.style.removeProperty("--shift");
-        drum.scrollLeft = cur.offsetLeft + cur.offsetWidth / 2 - drum.clientWidth / 2;
-      }
+  // Tambur menü: sekmeleri bir yayın üstüne dizer; seçili olan yayın tepesinde (--t = 0) durur.
+  // Roleplay ana sayfasında Genel bakış'ın bölümleri de aynı yayda, küçük boyda; sayfa kaydıkça okunan bölüm tepeye gelir,
+  // geçilenler (is-done) yay üstünde sıkışıp yığılır. --t açı, --ad tepeye uzaklık (sekme cinsinden); CSS yayı çiziyor.
+  var tabs = document.querySelector(".drum .tabs");
+  if (tabs) {
+    var tabItems = Array.prototype.slice.call(tabs.children);
+    var wide = window.matchMedia("(min-width: 1000px)");
+    var cur = tabs.querySelector(":scope > li > a[aria-current]") || tabItems[0].querySelector("a");
+    cur.classList.add("is-on");
+    var STEP = 11, SUB = 7, DONE = 2.5; // sayfa, bölüm ve yığılmış bölüm aralığı (derece)
+    // Yayın uçları sıkışır: 35°'den sonrası daha dar dizilir ki uzaktaki sayfalar ekrandan taşmasın
+    var bend = function (t) { var a = Math.abs(t); return (t < 0 ? -1 : 1) * (a <= 35 ? a : 35 + (a - 35) * 0.4); };
+
+    var anchor = cur.parentNode;
+    // Geçilen bölümler (is-done) ve ikiden fazla ilerideki bölümler (is-later) çentik olarak yığılır; sayfalar tepeye yakın kalsın
+    var stacked = function (li) { return li.classList.contains("is-done") || li.classList.contains("is-later"); };
+    var place = function () {
+      var at = 0, pos = [];
+      tabItems.forEach(function (li, i) {
+        if (i) {
+          var prev = tabItems[i - 1];
+          var sub = li.classList.contains("sub") || prev.classList.contains("sub");
+          // Yığında iki çentik arası dar; yığının başı ve sonu biraz daha açık
+          var done = (stacked(li) ? 1 : 0) + (stacked(prev) ? 1 : 0);
+          at += done === 2 ? DONE : done === 1 ? SUB * 0.75 : sub ? SUB : STEP;
+        }
+        pos.push(at);
+      });
+      var zero = pos[tabItems.indexOf(anchor)];
+      tabItems.forEach(function (li, i) {
+        var t = bend(pos[i] - zero);
+        li.style.setProperty("--t", t + "deg");
+        li.style.setProperty("--ad", Math.abs(t) / STEP);
+        // Sayfalar hep tıklanabilir kalır; sadece uzaktaki bölümler kapanır
+        li.classList.toggle("is-far", li.classList.contains("sub") && Math.abs(t) > STEP * 4.5);
+      });
     };
-    center();
-    window.addEventListener("resize", center);
-    if (document.fonts) document.fonts.ready.then(center);
+
+    // Yatay şeritte seçili sekmeyi ortaya kaydır (masaüstünde yay CSS'te)
+    var center = function (smooth) {
+      if (wide.matches) return;
+      var r = cur.parentNode.getBoundingClientRect(), box = tabs.getBoundingClientRect();
+      tabs.scrollBy({ left: r.left + r.width / 2 - (box.left + box.width / 2), behavior: smooth ? "smooth" : "auto" });
+    };
+
+    var secs = tabItems.filter(function (li) { return li.classList.contains("sub"); }).map(function (li) {
+      return { li: li, el: document.getElementById(li.querySelector("a").dataset.sec) };
+    }).filter(function (x) { return x.el; });
+
+    if (secs.length) {
+      tabs.closest(".drum").classList.add("has-secs");
+      var now = -2;
+      // Ekranın üst üçte birini geçen son bölüm okunan bölümdür
+      var spy = function () {
+        var line = window.innerHeight / 3, k = -1;
+        secs.forEach(function (x, i) { if (x.el.getBoundingClientRect().top <= line) k = i; });
+        if (k === now) return;
+        now = k;
+        secs.forEach(function (x, i) {
+          x.li.classList.toggle("is-done", i < k);
+          x.li.classList.toggle("is-now", i === k);
+          x.li.classList.toggle("is-later", i > k + 2);
+        });
+        anchor = k >= 0 ? secs[k].li : cur.parentNode;
+        place();
+        center(true);
+      };
+      window.addEventListener("scroll", spy, { passive: true });
+      spy();
+    } else {
+      place();
+    }
+    center(false);
+    setTimeout(function () { tabs.classList.add("is-ready"); }, 100);
+    window.addEventListener("resize", function () { center(false); });
+    if (document.fonts) document.fonts.ready.then(function () { center(false); });
   }
 
   // Hareketi azaltmak isteyenlerde sancağın dalgalanmasını durdur.

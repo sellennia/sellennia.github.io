@@ -89,16 +89,6 @@ code, kbd {
   padding: 0 var(--gutter);
 }
 
-.skip-link {
-  position: absolute;
-  left: -999px;
-  top: 0;
-  background: var(--accent);
-  color: var(--on-accent);
-  padding: 0.5em 1em;
-  z-index: 100;
-}
-.skip-link:focus { left: var(--gutter); }
 
 /* ---------- Üst menü ---------- */
 
@@ -159,11 +149,13 @@ code, kbd {
 .site-nav li.is-active > a { color: var(--text); border-bottom-color: var(--accent); }
 
 /* Sellennia Roleplay sayfalarında tambur menü.
-   Bulunduğun sayfa ortada ve büyük; uzaklaştıkça sekmeler küçülür, solar ve tambur gibi geriye döner.
-   --d sekmenin seçili olana uzaklığı (eksi yukarı), --ad mutlak değeri; main.js yazıyor. */
-.drum { --rail: 190px; }
+   Masaüstünde sekmeler sağa doğru şişen bir yayın (ters C) üstünde durur; seçili olan yayın tepesinde ve büyük.
+   Roleplay ana sayfasında bölümler (li.sub) aynı yayda, daha küçük boyda; geçilenler yay üstünde yığılır.
+   --t sekmenin yaydaki açısı, --ad tepeye uzaklığı; main.js yazıyor. */
+/* Kayıtlı özellikler sayesinde sekmeler geçişte düz çizgide değil, yay boyunca kayar */
+@property --t { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+@property --ad { syntax: "<number>"; inherits: true; initial-value: 0; }
 .drum ul { list-style: none; margin: 0; padding: 0; }
-.drum li { --d: 0; --ad: 0; }
 .drum a {
   display: block;
   white-space: nowrap;
@@ -173,79 +165,106 @@ code, kbd {
   font-weight: 600;
   font-size: 1.05rem;
   line-height: 1.2;
-  opacity: max(0.4, calc(1 - var(--ad) * 0.2));
-  transition: transform 0.35s cubic-bezier(.2, .8, .2, 1), opacity 0.35s ease, color 0.2s ease;
+  transition: color 0.2s ease, opacity 0.3s ease, font-size 0.3s ease;
 }
-.drum a:hover { color: var(--text); opacity: 1; }
-.drum a[aria-current="page"] { color: var(--text); }
+.drum a:hover { color: var(--text); }
+.tabs > li > a.is-on { color: var(--text); }
+.tabs > li.sub > a { font-size: 0.95rem; font-weight: 500; }
+.tabs > li.sub.is-now > a { color: var(--accent); }
 
 @media (min-width: 1000px) {
   .drum {
+    --r: 230px;       /* yayın yarıçapı */
+    --x0: 84px;       /* yayın tepesinin soldan uzaklığı */
     position: fixed;
     left: 0;
     top: 64px;
     bottom: 0;
-    width: var(--rail);
+    width: 250px;
     z-index: 15;
-    display: flex;
-    align-items: center;
     pointer-events: none;
   }
-  .drum .container { width: 100%; padding: 0 0 0 1.5rem; margin: 0; perspective: 600px; }
-  .drum ul {
-    pointer-events: auto;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
-    padding: 0.5rem 0 0.5rem 1rem;
-    transform: translateY(var(--shift, 0px));
-    transition: transform 0.35s cubic-bezier(.2, .8, .2, 1);
-  }
-  /* Tamburun ekseni: uçlara doğru kaybolan ince çizgi */
-  .drum ul::before {
+  .drum .container, .tabs { position: absolute; inset: 0; padding: 0; margin: 0; max-width: none; }
+  /* Yay: merkezi solda, ekran dışında kalan büyük bir çemberin sağ kenarı */
+  .tabs::before {
     content: "";
+    position: absolute;
+    left: calc(var(--x0) - 2 * var(--r));
+    top: calc(45% - var(--r));
+    width: calc(2 * var(--r));
+    height: calc(2 * var(--r));
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    -webkit-mask-image: linear-gradient(transparent 12%, #000 38%, #000 62%, transparent 88%);
+    mask-image: linear-gradient(transparent 12%, #000 38%, #000 62%, transparent 88%);
+  }
+  .tabs > li {
+    --t: 0deg;
+    --dot: 9px;
     position: absolute;
     left: 0;
-    top: -2rem;
-    bottom: -2rem;
-    width: 1px;
-    background: linear-gradient(transparent, var(--border) 25%, var(--border) 75%, transparent);
+    top: 45%;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transform-origin: 0 50%;
+    transform:
+      translate(calc(var(--x0) - var(--r) + var(--r) * cos(var(--t)) - var(--dot) / 2), calc(var(--r) * sin(var(--t)) - 50%))
+      rotate(calc(var(--t) * 0.4))
+      scale(max(0.72, calc(1 - var(--ad) * 0.08)));
+    opacity: max(0, calc(1 - var(--ad) * 0.21));
+    pointer-events: auto;
   }
-  .drum a {
-    padding: 0.3rem 0.4rem;
-    transform-origin: left center;
-    transform: rotateX(clamp(-34deg, calc(var(--d) * -16deg), 34deg)) scale(max(0.8, calc(1 - var(--ad) * 0.09)));
-  }
-  .drum a[aria-current="page"] { font-size: 1.3rem; position: relative; }
-  .drum a[aria-current="page"]::before {
+  /* İlk yerleşim animasyonsuz; sonra bölüm değiştikçe dönsün */
+  .tabs.is-ready > li { transition: --t 0.6s cubic-bezier(.2, .8, .2, 1), --ad 0.6s cubic-bezier(.2, .8, .2, 1); }
+  .tabs > li.is-far { pointer-events: none; }
+  /* Sayfalar yayın ucunda da okunur kalsın */
+  .tabs > li:not(.sub) { opacity: max(0.35, calc(1 - var(--ad) * 0.21)); }
+  /* Yay üstündeki nokta */
+  .tabs > li::before {
     content: "";
-    position: absolute;
-    left: -1rem;
-    top: 0.25rem;
-    bottom: 0.25rem;
-    width: 3px;
-    margin-left: -1px;
-    border-radius: 3px;
-    background: var(--accent);
+    flex: none;
+    width: var(--dot);
+    height: var(--dot);
+    box-sizing: border-box;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.3s ease;
   }
-  /* Üstüne gelince tambur düzleşir, hepsi rahat okunur */
-  .drum ul:hover a, .drum ul:focus-within a { transform: none; opacity: 1; }
+  .tabs > li:has(> a.is-on)::before,
+  .tabs > li.sub.is-now::before { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 12px var(--accent); }
+  .tabs > li:has(> a.is-on)::before { transform: scale(1.35); }
+  .tabs > li:hover::before { border-color: var(--muted); }
+  .tabs > li > a.is-on { font-size: 1.35rem; }
+
+  /* Bölümler: aynı yay, küçük boy */
+  .tabs > li.sub { --dot: 6px; gap: 0.6rem; }
+  .tabs > li.sub::before { border-width: 1.5px; }
+  .tabs > li.sub.is-now > a { font-size: 1.2rem; }
+  /* Geçilen ve daha uzaktaki bölümler yay üstünde ince çentikler olarak yığılır */
+  .tabs > li.sub:is(.is-done, .is-later)::before { width: 14px; height: 2px; border: none; border-radius: 2px; background: var(--border); }
+  /* Adı gizli ama yerinde; kutusu çentik aralığı kadar ince ki üst üste binmesin */
+  .tabs > li.sub:is(.is-done, .is-later) > a { opacity: 0; line-height: 10px; }
+  /* Üstüne gelinen çentik, hiçbir şey yerinden oynamadan, durduğu yerde normal bölüm hâline döner */
+  .tabs > li.sub:is(.is-done, .is-later):hover { z-index: 2; }
+  .tabs > li.sub:is(.is-done, .is-later):hover::before { width: var(--dot); height: var(--dot); border: 1.5px solid var(--muted); border-radius: 50%; background: var(--bg); }
+  .tabs > li.sub:is(.is-done, .is-later):hover > a { opacity: 1; color: var(--text); }
 
   /* İçerik tamburun altında kalmasın: dar ekranlarda sayfa sağa kayar, arka planlar yine tam genişlik */
   .drum ~ main .container,
   .drum ~ .site-footer .container {
     width: auto;
-    margin-left: max(190px, calc((100% - var(--max)) / 2));
+    margin-left: max(260px, calc((100% - var(--max)) / 2));
     margin-right: auto;
   }
 }
 
-/* Telefon ve tablet: aynı tambur yatay; seçili sekme ortada, kenarlara doğru küçülür */
+/* Telefon ve tablet: sayfalar yatay şeritte, seçili olan ortada; okunan bölümün adı yanında küçük yazar */
 @media (max-width: 999px) {
   .drum { border-bottom: 1px solid var(--border); background: var(--bg-2); }
   .drum .container { padding: 0; max-width: none; }
-  .drum ul {
+  .tabs {
     display: flex;
     align-items: center;
     gap: 0.25rem;
@@ -254,9 +273,16 @@ code, kbd {
     padding: 0.55rem 50%;
     mask-image: linear-gradient(90deg, transparent, #000 22%, #000 78%, transparent);
   }
-  .drum ul::-webkit-scrollbar { display: none; }
-  .drum a { padding: 0.25rem 0.55rem; transform: scale(calc(1 - var(--ad) * 0.12)); }
-  .drum a[aria-current="page"] { font-size: 1.15rem; color: var(--accent); }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs > li { flex: none; }
+  .tabs > li:not(.sub) > a { padding: 0.25rem 0.55rem; transform: scale(max(0.75, calc(1 - var(--ad) * 0.12))); opacity: max(0.4, calc(1 - var(--ad) * 0.2)); transition: transform 0.35s ease, opacity 0.35s ease, color 0.2s ease; }
+  .tabs > li > a.is-on { font-size: 1.15rem; color: var(--accent); }
+  .tabs > li.sub { display: none; }
+  .tabs > li.sub.is-now { display: block; margin-left: -0.4rem; }
+  .tabs > li.sub.is-now > a { color: var(--text); padding-right: 0.55rem; }
+  .tabs > li.sub.is-now > a::before { content: "› "; color: var(--muted); }
+  /* Bölümleri gösteren tambur (Roleplay ana sayfası) kaydırırken üstte kalsın */
+  .drum.has-secs { position: sticky; top: 64px; z-index: 19; }
 }
 
 @media (max-width: 760px) {
