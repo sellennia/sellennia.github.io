@@ -24,8 +24,11 @@
     var bend = function (t) { var a = Math.abs(t); return (t < 0 ? -1 : 1) * (a <= 35 ? a : 35 + (a - 35) * 0.4); };
 
     var anchor = cur.parentNode;
-    // Geçilen bölümler (is-done) ve ikiden fazla ilerideki bölümler (is-later) çentik olarak yığılır; sayfalar tepeye yakın kalsın
-    var stacked = function (li) { return li.classList.contains("is-done") || li.classList.contains("is-later"); };
+    // Toplu görünümde (compact) geçilen bölümler (is-done) ve ikiden fazla ilerideki bölümler (is-later) çentik olarak yığılır.
+    // İlk kez gelen herkese açık görünüm; düğmeyle toplanır ve seçim tarayıcıda hatırlanır.
+    var compact = false;
+    try { compact = localStorage.getItem("drum-compact") === "1"; } catch (e) {}
+    var stacked = function (li) { return compact && (li.classList.contains("is-done") || li.classList.contains("is-later")); };
     var place = function () {
       var at = 0, pos = [];
       tabItems.forEach(function (li, i) {
@@ -61,6 +64,22 @@
 
     if (secs.length) {
       tabs.closest(".drum").classList.add("has-secs");
+      // Yayın içinde, tepenin solunda duran yuvarlak düğme. İkondaki iki ok açıkken içe (topla), topluyken dışa (aç) bakar.
+      var toggle = document.createElement("button");
+      toggle.type = "button";
+      toggle.className = "drum-toggle";
+      toggle.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path class="up" d="m7 9 5-5 5 5"/><path class="down" d="m7 15 5 5 5-5"/></svg>';
+      var setCompact = function (v) {
+        compact = v;
+        tabs.classList.toggle("is-compact", v);
+        toggle.setAttribute("aria-pressed", v ? "true" : "false");
+        toggle.title = v ? "Bölümleri aç" : "Bölümleri topla";
+        toggle.setAttribute("aria-label", toggle.title);
+        try { localStorage.setItem("drum-compact", v ? "1" : "0"); } catch (e) {}
+      };
+      setCompact(compact);
+      toggle.addEventListener("click", function () { setCompact(!compact); place(); });
+      tabs.parentNode.appendChild(toggle);
       var now = -2;
       // Ekranın üst üçte birini geçen son bölüm okunan bölümdür
       var spy = function () {

@@ -181,7 +181,7 @@ code, kbd {
     top: 64px;
     bottom: 0;
     width: 250px;
-    z-index: 15;
+    z-index: 30; /* Üretim ve Sınıflar sayfalarındaki yapışkan çubukların (20) üstünde, başlığın (50) altında */
     pointer-events: none;
   }
   .drum .container, .tabs { position: absolute; inset: 0; padding: 0; margin: 0; max-width: none; }
@@ -218,6 +218,29 @@ code, kbd {
   /* İlk yerleşim animasyonsuz; sonra bölüm değiştikçe dönsün */
   .tabs.is-ready > li { transition: --t 0.6s cubic-bezier(.2, .8, .2, 1), --ad 0.6s cubic-bezier(.2, .8, .2, 1); }
   .tabs > li.is-far { pointer-events: none; }
+  /* Bölümleri topla / aç düğmesi: ters C'nin içinde, tepenin hizasında */
+  .drum-toggle {
+    position: absolute;
+    left: calc(var(--x0) - 50px);
+    top: 45%;
+    transform: translate(-50%, -50%);
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    pointer-events: auto;
+    color: var(--muted);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .drum-toggle:hover, .drum-toggle:focus-visible { color: var(--accent); border-color: var(--accent); box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 45%, transparent); outline: none; }
+  /* Açıkken oklar içe bakar (topla); topluyken her ok kendi ortasında döner, dışa bakar (aç) */
+  .drum-toggle path { transform-box: fill-box; transform-origin: center; transition: transform 0.35s ease; transform: rotate(180deg); }
+  .drum-toggle[aria-pressed="true"] path { transform: none; }
   /* Sayfalar yayın ucunda da okunur kalsın */
   .tabs > li:not(.sub) { opacity: max(0.35, calc(1 - var(--ad) * 0.21)); }
   /* Yay üstündeki nokta */
@@ -243,13 +266,13 @@ code, kbd {
   .tabs > li.sub::before { border-width: 1.5px; }
   .tabs > li.sub.is-now > a { font-size: 1.2rem; }
   /* Geçilen ve daha uzaktaki bölümler yay üstünde ince çentikler olarak yığılır */
-  .tabs > li.sub:is(.is-done, .is-later)::before { width: 14px; height: 2px; border: none; border-radius: 2px; background: var(--border); }
+  .tabs.is-compact > li.sub:is(.is-done, .is-later)::before { width: 14px; height: 2px; border: none; border-radius: 2px; background: var(--border); }
   /* Adı gizli ama yerinde; kutusu çentik aralığı kadar ince ki üst üste binmesin */
-  .tabs > li.sub:is(.is-done, .is-later) > a { opacity: 0; line-height: 10px; }
+  .tabs.is-compact > li.sub:is(.is-done, .is-later) > a { opacity: 0; line-height: 10px; }
   /* Üstüne gelinen çentik, hiçbir şey yerinden oynamadan, durduğu yerde normal bölüm hâline döner */
-  .tabs > li.sub:is(.is-done, .is-later):hover { z-index: 2; }
-  .tabs > li.sub:is(.is-done, .is-later):hover::before { width: var(--dot); height: var(--dot); border: 1.5px solid var(--muted); border-radius: 50%; background: var(--bg); }
-  .tabs > li.sub:is(.is-done, .is-later):hover > a { opacity: 1; color: var(--text); }
+  .tabs.is-compact > li.sub:is(.is-done, .is-later):hover { z-index: 2; }
+  .tabs.is-compact > li.sub:is(.is-done, .is-later):hover::before { width: var(--dot); height: var(--dot); border: 1.5px solid var(--muted); border-radius: 50%; background: var(--bg); }
+  .tabs.is-compact > li.sub:is(.is-done, .is-later):hover > a { opacity: 1; color: var(--text); }
 
   /* İçerik tamburun altında kalmasın: dar ekranlarda sayfa sağa kayar, arka planlar yine tam genişlik */
   .drum ~ main .container,
@@ -283,6 +306,7 @@ code, kbd {
   .tabs > li.sub.is-now > a::before { content: "› "; color: var(--muted); }
   /* Bölümleri gösteren tambur (Roleplay ana sayfası) kaydırırken üstte kalsın */
   .drum.has-secs { position: sticky; top: 64px; z-index: 19; }
+  .drum-toggle { display: none; }
 }
 
 @media (max-width: 760px) {
