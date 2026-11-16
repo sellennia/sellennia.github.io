@@ -1,0 +1,332 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plus Seven dev log | Sellennia Studios</title>
+  <meta name="description" content="How two people and an AI coding agent built Plus Seven, a 1v1 card-arena fighter, in four days for the 2026 Epic AI MegaJam.">
+  <meta property="og:title" content="Plus Seven dev log">
+  <meta property="og:description" content="Four days, two people, one AI coding agent: how Plus Seven was made for the 2026 Epic AI MegaJam.">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="../../assets/img/plus-seven/final-menu.jpg">
+  <link rel="icon" href="../../assets/img/logo.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="../../assets/img/apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Source+Sans+3:wght@400;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <style>
+    /* Dev log only: left-aligned reading text and a little air between a section's text and its pictures. */
+    .devlog p, .devlog li { text-align: left; hyphens: manual; }
+    .devlog .gallery { margin-top: 1.75rem; }
+    .devlog h3 { margin-top: 1.75rem; }
+    .devlog .video { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; margin-top: 1.5rem; }
+    .devlog .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a class="brand" href="../../"><img src="../../assets/img/logo.svg" alt="" width="40" height="40">Sellennia Studios</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Main menu">
+        <ul lang="tr">
+          <li><a href="../../">Ana sayfa</a></li>
+          <li><a href="../../sellennia-rp/">Sellennia Roleplay</a></li>
+          <li><a href="../../sellennia-helpers/">Sellennia's Helpers</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="icerik" class="devlog">
+    <section class="hero photo" style="background-image: url('../../assets/img/plus-seven/final-storm.jpg');">
+      <div class="container">
+        <span class="kicker">2026 Epic AI MegaJam · Dev log</span>
+        <h1>Plus Seven</h1>
+        <p class="lead">A 1v1 card-arena fighter where you are the director: you see who your rival casts, cast your own fighter from a hand of three cards, and call the cut of the stage before every take. Two of us built it in four days, with an AI coding agent doing a large share of the typing. This is how it went, including the parts that went wrong.</p>
+        <dl class="facts">
+          <dt>Team</dt><dd>Sellennia Studios (2 people)</dd>
+          <dt>Engine</dt><dd>Unreal Engine 5.5, C++</dd>
+          <dt>Made in</dt><dd>12 to 16 November 2026</dd>
+        </dl>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://bberk.itch.io/plus-seven">Play it on itch.io</a>
+          <a class="btn btn-ghost" href="https://www.youtube.com/watch?v=a2poZBIkuwE">Gameplay video</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container article">
+        <h2>The idea</h2>
+        <p>The theme was "Director's Cut". We took it literally. The fight is the scene, but the decisions that win the match are made in the director's chair, before anyone swings a sword.</p>
+        <p>Each side holds three fighter cards: Balanced, Fast and Heavy. The AI reveals its card first. You answer with one of yours and then choose how the stage is cut for this take: OPEN, with room to run, or NARROW, where walls close in. A card can be played once per match, and the first side to win two takes wins. That one rule is what makes casting a real choice: do you spend your best fighter now, or keep it for the last take?</p>
+        <p>Everything else in the presentation follows from the same idea. Rounds are "takes". The title screen is a clapperboard. The pause menu says "CUT! Hold the roll". The credits are a strip of film.</p>
+
+        <div class="video">
+          <iframe src="https://www.youtube.com/embed/a2poZBIkuwE" title="Plus Seven gameplay video" loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container article">
+        <h2>Who did what</h2>
+        <div class="rows">
+          <div>
+            <h3>Barış Berk Şengül</h3>
+            <p>Arenas, interface and match flow: the three sets, the OPEN and NARROW stage variants, every menu and HUD element, the card system and the rules of a match.</p>
+          </div>
+          <div>
+            <h3>Salih Özgür Seçen</h3>
+            <p>Characters and combat: the three fighters, their weapons and animations, combos, guarding and dodging, the special abilities and the rival AI.</p>
+          </div>
+        </div>
+        <p>We split the repository the same way. Each of us had a branch and a set of files the other did not touch, and Özgür's branch was merged into the arena branch every time he pushed. Because nobody edited the other's files, none of those merges ever conflicted.</p>
+        <p class="muted">This log is written from the arena and interface side of the project. Özgür's combat work is described here only as far as the commit history shows it.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container article">
+        <h2>How we used AI</h2>
+        <p>On the arena and interface side, almost all code was written by an AI coding agent (Claude Code) working inside the project folder, directed and reviewed by Barış. The agent was not only writing C++. Through an open-source editor plugin (EngineWire, a Model Context Protocol bridge for Unreal) it could run Python scripts in the editor, start a play session, drive a match by script and take a screenshot of the result. So the loop looked like this:</p>
+        <ol class="steps">
+          <li><h3>Ask in plain language</h3><p>"The pause menu is missing, design a good one." "Meteors should fall from the sky now and then, and director's chairs too."</p></li>
+          <li><h3>The agent writes and compiles</h3><p>C++ for gameplay and UI, Python for anything that touches a level. It builds the project itself and reads the compiler errors.</p></li>
+          <li><h3>It plays the game and looks</h3><p>It starts a session in the editor, pushes the match into the right state by script, takes a screenshot and inspects it. Overflowing text, a clipped button or a camera hidden behind a wall got caught here.</p></li>
+          <li><h3>It reports what it did not verify</h3><p>Every change came back with a list of what had been checked and what had only been compiled. A person then played the build.</p></li>
+        </ol>
+
+        <h3>Working rules we ended up with</h3>
+        <ul>
+          <li><strong>The interface is code, not assets.</strong> Every screen is built in C++ from one shared style (palette, fonts, sizes). There is not a single widget Blueprint in the project. That made the whole UI something an agent can read, change and diff.</li>
+          <li><strong>Levels are built by script.</strong> The three arenas come out of one Python builder with a theme and a layout each (a lane, a ring and an hourglass). Rebuilding a map is running a script, not hand-placing actors.</li>
+          <li><strong>A handoff note between sessions.</strong> The agent does not remember yesterday. At the end of a session it wrote down the state of the project, the decisions that were made, and what had never been tested by hand, and the next session started by reading it.</li>
+          <li><strong>Small sounds are generated, not recorded.</strong> Menu clicks, the clapper, stingers and both music loops are synthesised by a Python script. The three weapon hit sounds are Özgür's.</li>
+          <li><strong>The person decides.</strong> What the game is, what a feature should feel like and whether it is good enough were never the agent's call.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container article">
+        <span class="kicker">Day 1 · 12 November</span>
+        <h2>A match that can be won</h2>
+        <p>We started from Unreal's Third Person template. By the evening there was a complete match loop with nothing pretty in it: a card screen with letters instead of portraits, a countdown, a grey mannequin in a wooden arena, a round result and a match result. The stage director that switches a set between OPEN and NARROW was in from the first day, because the theme depended on it.</p>
+        <p>Getting the flow right before any art existed turned out to be the best decision of the jam. For the next three days every new fighter, effect and map dropped into a game that already had a beginning and an end.</p>
+        <div class="gallery">
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d1-arena.jpg" data-lightbox data-caption="The first arena, built by script">
+              <img src="../../assets/img/plus-seven/d1-arena-thumb.jpg" alt="A wooden palisade arena seen from above, with two watchtowers" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>The first arena, built by script</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d1-cards.jpg" data-lightbox data-caption="Day 1 card screen: letters instead of portraits">
+              <img src="../../assets/img/plus-seven/d1-cards-thumb.jpg" alt="Card selection screen in the editor with placeholder cards showing the letters H, B and F" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Day 1 card screen: letters instead of portraits</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d1-first-fight.jpg" data-lightbox data-caption="The first fight: a mannequin and a score">
+              <img src="../../assets/img/plus-seven/d1-first-fight-thumb.jpg" alt="A grey mannequin standing in the arena with a plain health bar and score" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>The first fight: a mannequin and a score</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container article">
+        <span class="kicker">Day 2 · 13 November</span>
+        <h2>Fighters, two more sets and a title</h2>
+        <p>Özgür's first big push landed just after midnight: the Balanced, Fast and Heavy fighters with their weapons and animations, followed later by combos, knockback and hit effects. On the arena side the builder got two more themes, a forest clearing and a village square, and a set selection screen to choose between them. Each set has its own NARROW cut: a long lane in the stockade, a ring of boulders in the forest, barricades of carts and crates in the village.</p>
+        <p>The cards needed faces. Instead of drawing them, the agent wrote a small "portrait studio": a script that puts each fighter in an empty level in front of a coloured backdrop, photographs it and imports the picture as card art.</p>
+        <div class="gallery">
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d2-forest.jpg" data-lightbox data-caption="Forest Clearing">
+              <img src="../../assets/img/plus-seven/d2-forest-thumb.jpg" alt="A round forest clearing surrounded by rocks and colourful trees" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Forest Clearing</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d2-village.jpg" data-lightbox data-caption="Village Square">
+              <img src="../../assets/img/plus-seven/d2-village-thumb.jpg" alt="A paved village square surrounded by blue-roofed houses" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Village Square</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d2-portraits.jpg" data-lightbox data-caption="Cards with photographed portraits">
+              <img src="../../assets/img/plus-seven/d2-portraits-thumb.jpg" alt="Card selection screen with a portrait of each fighter on its card" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Cards with photographed portraits</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d2-ninja.jpg" data-lightbox data-caption="The Fast fighter on set">
+              <img src="../../assets/img/plus-seven/d2-ninja-thumb.jpg" alt="The black-clad Fast fighter standing in the stockade arena" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>The Fast fighter on set</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container article">
+        <span class="kicker">Day 3 · 14 November</span>
+        <h2>Making hits feel like hits</h2>
+        <p>The third day belonged to combat. Özgür added directional guarding, the Balanced fighter's shield, aiming for the ninja's shuriken, dodging, and more of the feedback that makes a hit read. On the other branch the work was integration: merge, build, play a match, repeat.</p>
+        <div class="gallery">
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d3-combo.jpg" data-lightbox data-caption="First combo with an impact effect">
+              <img src="../../assets/img/plus-seven/d3-combo-thumb.jpg" alt="Two fighters in the arena with a burst of sparks between them" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>First combo with an impact effect</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container article">
+        <span class="kicker">Day 4 · 15 November, into the night</span>
+        <h2>Everything that makes it a game</h2>
+        <p>The last day was long. Special abilities arrived (Shield Breaker, Shadow Storm, Earthshaker) along with the ninja's Shadow Step. Sound went in: hits, menu sounds, stingers and two music loops. Then, in one evening on the interface side:</p>
+        <ul>
+          <li><strong>Sky hazards.</strong> Every few seconds during a fight a flaming meteor or a flaming director's chair falls into the arena and hurts whoever stands too close. There was no chair model in the project, so the chair is assembled in code out of stretched cubes: crossed wooden legs, a red canvas seat and back.</li>
+          <li><strong>A pause menu</strong> that stops the shoot, shows the set, the take and the score, and lets you resume, restart or change set.</li>
+          <li><strong>Settings</strong> with master, music and sound-effect sliders that are saved between sessions.</li>
+          <li><strong>Credits</strong> as a strip of film with running perforations.</li>
+        </ul>
+        <div class="gallery">
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d4-chair.jpg" data-lightbox data-caption="Two director's chairs, freshly landed">
+              <img src="../../assets/img/plus-seven/d4-chair-thumb.jpg" alt="Two burning director's chairs lying on the arena floor next to the fighters" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Two director's chairs, freshly landed</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d4-pause.jpg" data-lightbox data-caption="CUT! Hold the roll">
+              <img src="../../assets/img/plus-seven/d4-pause-thumb.jpg" alt="Pause menu styled as a clapperboard with RESUME, RESTART MATCH and CHANGE SET buttons" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>CUT! Hold the roll</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d4-settings.jpg" data-lightbox data-caption="The sound mix">
+              <img src="../../assets/img/plus-seven/d4-settings-thumb.jpg" alt="Settings panel with three volume sliders" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>The sound mix</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/d4-credits.jpg" data-lightbox data-caption="Credits on a strip of film">
+              <img src="../../assets/img/plus-seven/d4-credits-thumb.jpg" alt="Credits screen shaped like a film strip with two frames, one for each team member" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Credits on a strip of film</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section alt">
+      <div class="container article">
+        <h2>What went wrong</h2>
+        <p>A dev log that only lists features is an advert. These are the problems that cost us time, most of them found in the last twelve hours.</p>
+        <div class="rows">
+          <div>
+            <h3>The first packaged build had no effects</h3>
+            <p>Everything worked in the editor. In the packaged game the hit effects were simply gone. The code loaded its particle effects by path, and Unreal only packages what something refers to directly, so the effects were never included. The fix was one line in the packaging settings. The lesson was to package on day one, not day four.</p>
+          </div>
+          <div>
+            <h3>The camera went through walls</h3>
+            <p>On the NARROW stage the camera slid inside fences and boulders, which turned the screen black or hid both fighters. The arena builder had deliberately made walls invisible to the camera so it would not jump around. The fix makes everything that blocks a fighter block the camera too, applied when a level starts, so no map had to be rebuilt.</p>
+          </div>
+          <div>
+            <h3>The agent could not take action shots</h3>
+            <p>The plan was for the agent to capture the store screenshots itself. Menus worked. Fights did not: on the development laptop the game ran at about three frames per second inside the editor, far too slow to freeze the right moment. The action shots on the store page are frames from a real gameplay recording instead.</p>
+          </div>
+          <div>
+            <h3>An agent's "done" is not "tested"</h3>
+            <p>Code that compiles and looks right in one screenshot can still be wrong when a person holds the mouse. Text overflowed its box, the test player was beaten while a script was still waiting, a button label was the same colour as its button. Having the agent say plainly what it had not checked mattered more than any single feature.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container article">
+        <h2>Where it ended up</h2>
+        <p>Three sets, each with two cuts. Three fighters with a combo, a guard or dodge and a special ability each. An opponent that plays its cards and fights back. A match that starts on a clapperboard and ends on one.</p>
+        <div class="gallery">
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/final-menu.jpg" data-lightbox data-caption="Title screen">
+              <img src="../../assets/img/plus-seven/final-menu-thumb.jpg" alt="Plus Seven title screen: a clapperboard with the game's name and a PLAY button" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Title screen</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/final-cards.jpg" data-lightbox data-caption="Second take: one card already used">
+              <img src="../../assets/img/plus-seven/final-cards-thumb.jpg" alt="Card selection in the second round with one card stamped USED" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Second take: one card already used</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/final-storm.jpg" data-lightbox data-caption="Shadow Storm">
+              <img src="../../assets/img/plus-seven/final-storm-thumb.jpg" alt="The Fast fighter casting Shadow Storm in a burst of purple light" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Shadow Storm</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/final-earthshaker.jpg" data-lightbox data-caption="Earthshaker in the village">
+              <img src="../../assets/img/plus-seven/final-earthshaker-thumb.jpg" alt="The Heavy fighter's Earthshaker slam leaving rings of fire on the village square" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>Earthshaker in the village</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/final-chair.jpg" data-lightbox data-caption="A director's chair burns on set">
+              <img src="../../assets/img/plus-seven/final-chair-thumb.jpg" alt="A burning director's chair on the village square next to the Heavy fighter" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>A director's chair burns on set</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../../assets/img/plus-seven/final-victory.jpg" data-lightbox data-caption="That's a wrap">
+              <img src="../../assets/img/plus-seven/final-victory-thumb.jpg" alt="Victory screen showing a 2 to 0 score" width="640" height="480" loading="lazy">
+            </a>
+            <figcaption>That's a wrap</figcaption>
+          </figure>
+        </div>
+
+        <h3>Tools</h3>
+        <ul>
+          <li>Unreal Engine 5.5 (C++, UMG and Slate built in code, Niagara and Cascade, Lumen)</li>
+          <li>Claude Code as the AI coding agent, with the open-source EngineWire plugin connecting it to the Unreal editor</li>
+          <li>Python for the arena builder, the portrait studio and the sound generator</li>
+          <li>Asset packs from Fab for the environments and effects, plus Unreal's Starter Content</li>
+          <li>Git with Git LFS, OBS and ffmpeg for the video</li>
+        </ul>
+        <p class="muted">This page was put together by the AI agent from the project's commit history and its own session notes.</p>
+
+        <div class="actions">
+          <a class="btn btn-primary" href="https://bberk.itch.io/plus-seven">Play Plus Seven</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <a class="brand brand-footer" href="../../"><img src="../../assets/img/studios-logo.png" alt="Sellennia Studios" width="720" height="390"></a>
+      <nav aria-label="Footer menu" lang="tr">
+        <a href="../../sellennia-rp/">Sellennia Roleplay</a>
+        <a href="../../sellennia-helpers/">Sellennia's Helpers</a>
+        <a href="./" lang="en">Plus Seven dev log</a>
+      </nav>
+      <p class="legal">Plus Seven was made for the 2026 Epic AI MegaJam. Unreal Engine is a trademark of Epic Games, Inc. This site is not affiliated with Epic Games.</p>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>
