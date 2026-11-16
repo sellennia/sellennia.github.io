@@ -22,6 +22,17 @@
     .devlog h3 { margin-top: 1.75rem; }
     .devlog .video { position: relative; aspect-ratio: 16 / 9; border-radius: var(--radius); overflow: hidden; margin-top: 1.5rem; }
     .devlog .video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+    .devlog .diagram { margin: 2rem auto; overflow-x: auto; }
+    .devlog .diagram svg { display: block; width: 100%; min-width: 660px; height: auto; font-family: var(--font-body); }
+    .devlog .diagram .box { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
+    .devlog .diagram .ai { fill: var(--surface-2); stroke: var(--accent); stroke-width: 2; }
+    .devlog .diagram .out { fill: var(--bg-2); stroke: var(--accent-2); stroke-width: 2; }
+    .devlog .diagram .t { fill: var(--text); font-size: 17px; font-weight: 600; text-anchor: middle; }
+    .devlog .diagram .s { fill: var(--muted); font-size: 14px; text-anchor: middle; }
+    .devlog .diagram .lbl { fill: var(--muted); font-size: 13px; }
+    .devlog .diagram .arrow { stroke: var(--muted); stroke-width: 2; fill: none; marker-end: url(#ah); }
+    .devlog .diagram .back { stroke: var(--accent); stroke-width: 2; fill: none; stroke-dasharray: 6 5; marker-end: url(#ahp); }
+    .devlog .diagram figcaption { color: var(--muted); font-size: 0.95rem; margin-top: 0.6rem; text-align: center; }
   </style>
 </head>
 <body>
@@ -44,11 +55,12 @@
       <div class="container">
         <span class="kicker">2026 Epic AI MegaJam · Dev log</span>
         <h1>Plus Seven</h1>
-        <p class="lead">A 1v1 card-arena fighter where you are the director: you see who your rival casts, cast your own fighter from a hand of three cards, and call the cut of the stage before every take. Two of us built it in four days, with an AI coding agent doing a large share of the typing. This is how it went, including the parts that went wrong.</p>
+        <p class="lead">A 1v1 card-arena fighter where you are the director: you see who your rival casts, cast your own fighter from a hand of three cards, and call the cut of the stage before every take. Two of us built it in four days, each working with an AI model that did a large share of the typing. This is how it went, including the parts that went wrong.</p>
         <dl class="facts">
           <dt>Team</dt><dd>Sellennia Studios (2 people)</dd>
           <dt>Engine</dt><dd>Unreal Engine 5.5, C++</dd>
-          <dt>Made in</dt><dd>12 to 16 November 2026</dd>
+          <dt>When</dt><dd>12 to 16 November 2026</dd>
+          <dt>AI</dt><dd>Claude Fable 5.2 with Opus 5.5 agents, GPT-6 Astra</dd>
         </dl>
         <div class="actions">
           <a class="btn btn-primary" href="https://bberk.itch.io/plus-seven">Play it on itch.io</a>
@@ -76,22 +88,89 @@
         <div class="rows">
           <div>
             <h3>Barış Berk Şengül</h3>
-            <p>Arenas, interface and match flow: the three sets, the OPEN and NARROW stage variants, every menu and HUD element, the card system and the rules of a match.</p>
+            <p>Arenas, interface and match flow: the three sets, the OPEN and NARROW stage variants, every menu and HUD element, the card system and the rules of a match. Worked with Claude Fable 5.2 in Claude Code, which orchestrated Opus 5.5 agents for the large pieces.</p>
           </div>
           <div>
             <h3>Salih Özgür Seçen</h3>
-            <p>Characters and combat: the three fighters, their weapons and animations, combos, guarding and dodging, the special abilities and the rival AI.</p>
+            <p>Characters and combat: the three fighters, their weapons and animations, combos, guarding and dodging, the special abilities and the rival AI. Worked with OpenAI's GPT-6 Astra.</p>
           </div>
         </div>
         <p>We split the repository the same way. Each of us had a branch and a set of files the other did not touch, and Özgür's branch was merged into the arena branch every time he pushed. Because nobody edited the other's files, none of those merges ever conflicted.</p>
-        <p class="muted">This log is written from the arena and interface side of the project. Özgür's combat work is described here only as far as the commit history shows it.</p>
+        <p class="muted">This log is written from the arena and interface side of the project. Özgür's combat work, and how he used GPT-6 Astra for it, is described here only as far as the commit history shows it.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="container article">
         <h2>How we used AI</h2>
-        <p>On the arena and interface side, almost all code was written by an AI coding agent (Claude Code) working inside the project folder, directed and reviewed by Barış. The agent was not only writing C++. Through an open-source editor plugin (EngineWire, a Model Context Protocol bridge for Unreal) it could run Python scripts in the editor, start a play session, drive a match by script and take a screenshot of the result. So the loop looked like this:</p>
+        <p>Two people, two different AI setups, one repository. Özgür built characters and combat with OpenAI's GPT-6 Astra. On the arena and interface side, almost all code was written by Claude models working inside the project folder through Claude Code, directed and reviewed by Barış.</p>
+        <p>That side was an orchestration rather than a single assistant. Claude Fable 5.2 held the conversation, the plan and the project's history. Large, self-contained jobs were handed to Claude Opus 5.5 agents with a written brief: what to build, which folders belong to the other teammate and must not be touched, and whether the editor was open or closed. Small fixes Fable made directly.</p>
+
+        <figure class="diagram">
+          <svg viewBox="0 0 900 500" role="img" aria-labelledby="dg-title dg-desc">
+            <title id="dg-title">How the work flowed</title>
+            <desc id="dg-desc">Barış directs Claude Fable 5.2, which hands large tasks to Opus 5.5 agents and makes small fixes itself. Their code and scripts go to the Unreal editor through the EngineWire bridge, and screenshots and logs come back to Fable. Özgür works with GPT-6 Astra on the combat branch. Both branches are merged, built and packaged into the Windows game.</desc>
+            <defs>
+              <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--muted)"/></marker>
+              <marker id="ahp" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="var(--accent)"/></marker>
+            </defs>
+
+            <!-- people -->
+            <rect class="box" x="70" y="14" width="390" height="62" rx="12"/>
+            <text class="t" x="265" y="41">Barış</text>
+            <text class="s" x="265" y="62">arena, interface, match flow</text>
+            <rect class="box" x="560" y="14" width="300" height="62" rx="12"/>
+            <text class="t" x="710" y="41">Özgür</text>
+            <text class="s" x="710" y="62">characters, combat, rival AI</text>
+
+            <!-- models -->
+            <path class="arrow" d="M265 76 V110"/>
+            <rect class="ai" x="70" y="112" width="390" height="62" rx="12"/>
+            <text class="t" x="265" y="139">Claude Fable 5.2</text>
+            <text class="s" x="265" y="160">orchestrator: plan, briefs, review, small fixes</text>
+            <path class="arrow" d="M710 76 V110"/>
+            <rect class="ai" x="560" y="112" width="300" height="62" rx="12"/>
+            <text class="t" x="710" y="139">GPT-6 Astra</text>
+            <text class="s" x="710" y="160">characters and combat</text>
+
+            <!-- delegation -->
+            <path class="arrow" d="M170 174 V208"/>
+            <path class="arrow" d="M360 174 V208"/>
+            <rect class="ai" x="70" y="210" width="200" height="62" rx="12"/>
+            <text class="t" x="170" y="237">Opus 5.5 agents</text>
+            <text class="s" x="170" y="258">large, briefed tasks</text>
+            <rect class="box" x="290" y="210" width="170" height="62" rx="12"/>
+            <text class="t" x="375" y="237">Direct edits</text>
+            <text class="s" x="375" y="258">small fixes</text>
+
+            <!-- editor -->
+            <path class="arrow" d="M170 272 V306"/>
+            <path class="arrow" d="M375 272 V306"/>
+            <rect class="box" x="70" y="308" width="390" height="62" rx="12"/>
+            <text class="t" x="265" y="335">Unreal editor through EngineWire</text>
+            <text class="s" x="265" y="356">compile, run scripts, play a match, take a screenshot</text>
+
+            <!-- feedback loop -->
+            <path class="back" d="M70 339 H34 V143 H68"/>
+            <text class="lbl" x="26" y="246" text-anchor="middle" transform="rotate(-90 26 246)">screenshots and logs</text>
+
+            <!-- branches -->
+            <path class="arrow" d="M710 174 V306"/>
+            <rect class="box" x="560" y="308" width="300" height="62" rx="12"/>
+            <text class="t" x="710" y="335">Combat branch</text>
+            <text class="s" x="710" y="356">his files only</text>
+
+            <!-- merge -->
+            <path class="arrow" d="M265 370 V414"/>
+            <path class="arrow" d="M710 370 V414"/>
+            <rect class="out" x="70" y="416" width="790" height="66" rx="12"/>
+            <text class="t" x="465" y="445">Merge, build, play a match, package</text>
+            <text class="s" x="465" y="466">one Windows build, tested by a person</text>
+          </svg>
+          <figcaption>Pink outlines are AI models. The dashed line is the loop that let the agent see what it had built.</figcaption>
+        </figure>
+
+        <p>The agents were not only writing C++. Through an open-source editor plugin (EngineWire, a Model Context Protocol bridge for Unreal) they could run Python scripts in the editor, start a play session, drive a match by script and take a screenshot of the result. So one turn of the loop looked like this:</p>
         <ol class="steps">
           <li><h3>Ask in plain language</h3><p>"The pause menu is missing, design a good one." "Meteors should fall from the sky now and then, and director's chairs too."</p></li>
           <li><h3>The agent writes and compiles</h3><p>C++ for gameplay and UI, Python for anything that touches a level. It builds the project itself and reads the compiler errors.</p></li>
@@ -103,6 +182,7 @@
         <ul>
           <li><strong>The interface is code, not assets.</strong> Every screen is built in C++ from one shared style (palette, fonts, sizes). There is not a single widget Blueprint in the project. That made the whole UI something an agent can read, change and diff.</li>
           <li><strong>Levels are built by script.</strong> The three arenas come out of one Python builder with a theme and a layout each (a lane, a ring and an hourglass). Rebuilding a map is running a script, not hand-placing actors.</li>
+          <li><strong>Briefs name what not to touch.</strong> Every job handed to an Opus agent listed the folders that belonged to the other teammate. An agent that "helpfully" tidies someone else's file is how merges break.</li>
           <li><strong>A handoff note between sessions.</strong> The agent does not remember yesterday. At the end of a session it wrote down the state of the project, the decisions that were made, and what had never been tested by hand, and the next session started by reading it.</li>
           <li><strong>Small sounds are generated, not recorded.</strong> Menu clicks, the clapper, stingers and both music loops are synthesised by a Python script. The three weapon hit sounds are Özgür's.</li>
           <li><strong>The person decides.</strong> What the game is, what a feature should feel like and whether it is good enough were never the agent's call.</li>
@@ -301,12 +381,14 @@
         <h3>Tools</h3>
         <ul>
           <li>Unreal Engine 5.5 (C++, UMG and Slate built in code, Niagara and Cascade, Lumen)</li>
-          <li>Claude Code as the AI coding agent, with the open-source EngineWire plugin connecting it to the Unreal editor</li>
+          <li>Claude Code with Claude Fable 5.2 as orchestrator and Claude Opus 5.5 agents for large tasks (arena, interface, match flow)</li>
+          <li>OpenAI GPT-6 Astra (characters, combat, rival AI)</li>
+          <li>EngineWire, an open-source Model Context Protocol plugin that connects an agent to the Unreal editor</li>
           <li>Python for the arena builder, the portrait studio and the sound generator</li>
           <li>Asset packs from Fab for the environments and effects, plus Unreal's Starter Content</li>
           <li>Git with Git LFS, OBS and ffmpeg for the video</li>
         </ul>
-        <p class="muted">This page was put together by the AI agent from the project's commit history and its own session notes.</p>
+        <p class="muted">This page was written by Claude Fable 5.2 from the project's commit history and its own session notes.</p>
 
         <div class="actions">
           <a class="btn btn-primary" href="https://bberk.itch.io/plus-seven">Play Plus Seven</a>
