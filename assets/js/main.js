@@ -73,7 +73,9 @@
         compact = v;
         tabs.classList.toggle("is-compact", v);
         toggle.setAttribute("aria-pressed", v ? "true" : "false");
-        toggle.title = v ? "Bölümleri aç" : "Bölümleri topla";
+        // İngilizce sayfalarda (ör. Plus Seven dev log) düğmenin adı da İngilizce
+        var en = (document.documentElement.lang || "").slice(0, 2) === "en";
+        toggle.title = v ? (en ? "Expand sections" : "Bölümleri aç") : (en ? "Collapse sections" : "Bölümleri topla");
         toggle.setAttribute("aria-label", toggle.title);
         try { localStorage.setItem("drum-compact", v ? "1" : "0"); } catch (e) {}
       };
@@ -85,6 +87,13 @@
       var spy = function () {
         var line = window.innerHeight / 3, k = -1;
         secs.forEach(function (x, i) { if (x.el.getBoundingClientRect().top <= line) k = i; });
+        // Sayfanın dibine gelindiyse son bölüm okunuyor demektir: kısa bir son bölüm çizgiye hiç ulaşamaz,
+        // menüden tıklansa bile bir önceki bölüm seçili kalırdı.
+        var doc = document.documentElement;
+        if (secs.length && window.innerHeight + window.scrollY >= doc.scrollHeight - 2) {
+          var last = secs.length - 1;
+          if (secs[last].el.getBoundingClientRect().top < window.innerHeight) k = last;
+        }
         if (k === now) return;
         now = k;
         secs.forEach(function (x, i) {
@@ -97,6 +106,10 @@
         center(true);
       };
       window.addEventListener("scroll", spy, { passive: true });
+      // Pencere boyutu değişince bölümlerin yeri de değişir (yazı yeniden dizilir, resimler küçülür)
+      window.addEventListener("resize", spy);
+      // Resimler ve yazı tipleri yüklenince sayfa uzar; adresteki #bölüm için ilk hesap eskimiş olabilir
+      window.addEventListener("load", spy);
       spy();
     } else {
       place();

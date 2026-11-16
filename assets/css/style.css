@@ -148,6 +148,18 @@ code, kbd {
 
 .site-nav li.is-active > a { color: var(--text); border-bottom-color: var(--accent); }
 
+/* Sayfa içi bağlantılar (tambur menüdeki bölümler, #icerik) yapışkan başlığın altında kalmasın.
+   :where() özgüllük eklemez; kendi scroll-margin'i olan bölümler (ör. .prod-section) onu korur. */
+:root { --scroll-offset: 80px; }
+:where(section[id], main[id]) { scroll-margin-top: var(--scroll-offset); }
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+}
+/* Telefon ve tablette bölümleri gösteren tambur da üstte yapışık durur: başlık + şerit kadar boşluk bırak */
+@media (max-width: 999px) {
+  body:has(.drum.has-secs) { --scroll-offset: 124px; }
+}
+
 /* Sellennia Roleplay sayfalarında tambur menü.
    Masaüstünde sekmeler sağa doğru şişen bir yayın (ters C) üstünde durur; seçili olan yayın tepesinde ve büyük.
    Roleplay ana sayfasında bölümler (li.sub) aynı yayda, daha küçük boyda; geçilenler yay üstünde yığılır.

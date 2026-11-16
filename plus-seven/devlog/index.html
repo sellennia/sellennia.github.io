@@ -51,6 +51,24 @@
     </div>
   </header>
 
+  <nav class="drum" aria-label="Dev log sections">
+    <div class="container">
+      <ul class="tabs">
+        <li><a href="#icerik" aria-current="page">Dev log</a></li>
+        <li class="sub"><a href="#idea" data-sec="idea">The idea</a></li>
+        <li class="sub"><a href="#team" data-sec="team">Who did what</a></li>
+        <li class="sub"><a href="#ai" data-sec="ai">How we used AI</a></li>
+        <li class="sub"><a href="#day-1" data-sec="day-1">Day 1</a></li>
+        <li class="sub"><a href="#day-2" data-sec="day-2">Day 2</a></li>
+        <li class="sub"><a href="#day-3" data-sec="day-3">Day 3</a></li>
+        <li class="sub"><a href="#day-4" data-sec="day-4">Day 4</a></li>
+        <li class="sub"><a href="#problems" data-sec="problems">What went wrong</a></li>
+        <li class="sub"><a href="#result" data-sec="result">The result</a></li>
+        <li><a href="https://bberk.itch.io/plus-seven">Play it</a></li>
+      </ul>
+    </div>
+  </nav>
+
   <main id="icerik" class="devlog">
     <section class="hero photo" style="background-image: url('../../assets/img/plus-seven/final-storm.jpg');">
       <div class="container">
@@ -70,7 +88,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="idea">
       <div class="container article">
         <h2>The idea</h2>
         <p>The theme was "Director's Cut". We took it literally. The fight is the scene, but the decisions that win the match are made in the director's chair, before anyone swings a sword.</p>
@@ -83,7 +101,7 @@
       </div>
     </section>
 
-    <section class="section alt">
+    <section class="section alt" id="team">
       <div class="container article">
         <h2>Who did what</h2>
         <div class="rows">
@@ -101,7 +119,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="ai">
       <div class="container article">
         <h2>How we used AI</h2>
         <p>Two people, two different AI setups, one repository. Özgür built characters and combat with OpenAI's GPT-6 Astra. On the arena and interface side, almost all code was written by Claude models working inside the project folder through Claude Code, directed and reviewed by Barış.</p>
@@ -191,7 +209,7 @@
       </div>
     </section>
 
-    <section class="section alt">
+    <section class="section alt" id="day-1">
       <div class="container article">
         <span class="kicker">Day 1 · 12 November</span>
         <h2>A match that can be won</h2>
@@ -220,7 +238,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="day-2">
       <div class="container article">
         <span class="kicker">Day 2 · 13 November</span>
         <h2>Fighters, two more sets and a title</h2>
@@ -255,7 +273,7 @@
       </div>
     </section>
 
-    <section class="section alt">
+    <section class="section alt" id="day-3">
       <div class="container article">
         <span class="kicker">Day 3 · 14 November</span>
         <h2>Making hits feel like hits</h2>
@@ -271,7 +289,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="day-4">
       <div class="container article">
         <span class="kicker">Day 4 · 15 November, into the night</span>
         <h2>Everything that makes it a game</h2>
@@ -311,7 +329,7 @@
       </div>
     </section>
 
-    <section class="section alt">
+    <section class="section alt" id="problems">
       <div class="container article">
         <h2>What went wrong</h2>
         <p>A dev log that only lists features is an advert. These are the problems that cost us time, most of them found in the last twelve hours.</p>
@@ -336,7 +354,7 @@
       </div>
     </section>
 
-    <section class="section">
+    <section class="section" id="result">
       <div class="container article">
         <h2>Where it ended up</h2>
         <p>Three sets, each with two cuts. Three fighters with a combo, a guard or dodge and a special ability each. An opponent that plays its cards and fights back. A match that starts on a clapperboard and ends on one.</p>
